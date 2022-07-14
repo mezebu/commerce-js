@@ -4,8 +4,9 @@ import { commerce } from "./lib/commerce";
 
 import TopBanner from "./components/TopBanner/TopBanner";
 import AppBar from "./components/AppBar/AppBar";
+import Widgets from "./components/Widgets/Widgets";
 
-const App = ({ props }) => {
+const App = () => {
   const [products, setProducts] = useState([]);
 
   console.log(products);
@@ -30,20 +31,11 @@ const App = ({ props }) => {
       <CssBaseline />
       <TopBanner />
       <AppBar />
-      <Container maxWidth="xl">
-        <Box sx={{ my: -5 }}>
-          <Container>
-            {[...new Array(52)]
-              .map(
-                () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
-              )
-              .join("\n")}
-          </Container>
-        </Box>
-      </Container>
+      <Box sx={{ my: -7, background: "#F6F9FC" }}>
+        <Container maxWidth="xl">
+          <Widgets />
+        </Container>
+      </Box>
     </Fragment>
   );
 };
