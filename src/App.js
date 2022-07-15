@@ -2,13 +2,13 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Box, Container, CssBaseline } from "@mui/material";
 import { commerce } from "./lib/commerce";
 
-import TopBanner from "./components/TopBanner/TopBanner";
 import AppBar from "./components/AppBar/AppBar";
-import Widgets from "./components/Widgets/Widgets";
+import Hero from "./components/HeroPage/Hero";
+import NavigationTab from "./components/NavigationTabs/NavigationTab";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
   const [products, setProducts] = useState([]);
-
   console.log(products);
 
   useEffect(() => {
@@ -29,13 +29,16 @@ const App = () => {
   return (
     <Fragment>
       <CssBaseline />
-      <TopBanner />
-      <AppBar />
-      <Box sx={{ my: -7, background: "#F6F9FC" }}>
-        <Container maxWidth="xl">
-          <Widgets />
-        </Container>
+      <Box sx={{ background: "#F6F9FC" }}>
+        <AppBar />
+        <Box sx={{ my: -7 }}>
+          <Container maxWidth="xl">
+            <NavigationTab />
+            <Hero />
+          </Container>
+        </Box>
       </Box>
+      <Footer />
     </Fragment>
   );
 };
