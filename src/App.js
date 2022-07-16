@@ -1,15 +1,33 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Box, Container, CssBaseline } from "@mui/material";
+import { Routes, Route } from "react-router-dom";
 import { commerce } from "./lib/commerce";
 
 import AppBar from "./components/AppBar/AppBar";
 import Hero from "./components/HeroPage/Hero";
 import NavigationTab from "./components/NavigationTabs/NavigationTab";
 import Footer from "./components/Footer/Footer";
+import ProductsList from "./components/Products/ProductsList";
 
 const App = () => {
   const [products, setProducts] = useState([]);
-  console.log(products);
+  const [query, setQuery] = useState("");
+  const [data, setData] = useState({});
+
+  console.log(data);
+
+  const searchProduct = (e) => {
+    e.preventDefault();
+
+    commerce.products.list({ query: query }).then(({ data }) => {
+      setData(data);
+      setQuery("");
+    });
+  };
+
+  const handleChange = (event) => {
+    setQuery(event.target.value);
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -29,15 +47,26 @@ const App = () => {
   return (
     <Fragment>
       <CssBaseline />
-      <Box sx={{ background: "#F6F9FC" }}>
-        <AppBar />
-        <Box sx={{ my: -7 }}>
-          <Container maxWidth="xl">
-            <NavigationTab />
-            <Hero />
-          </Container>
+      <AppBar
+        searchProduct={searchProduct}
+        handleChange={handleChange}
+        query={query}
+      />
+      <Box sx={{ my: -7 }}>
+        <Box sx={{ mb: 1 }}>
+          <NavigationTab />
         </Box>
+        <Container maxWidth="xl">
+          <Routes>
+            <Route path="/" element={<Hero />} />
+            <Route
+              path="/products"
+              element={<ProductsList products={products} />}
+            />
+          </Routes>
+        </Container>
       </Box>
+
       <Footer />
     </Fragment>
   );
