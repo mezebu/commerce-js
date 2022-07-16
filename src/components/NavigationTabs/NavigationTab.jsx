@@ -1,29 +1,70 @@
-import React, { useState } from "react";
+import React, { Fragment } from "react";
+import { useLocation, matchPath, Link } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import PhoneIcon from "@mui/icons-material/Phone";
+import StoreIcon from "@mui/icons-material/Store";
+import HomeIcon from "@mui/icons-material/Home";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 
-const NavigationTab = () => {
-  const [value, setValue] = useState(0);
+function useRouteMatch(patterns) {
+  const { pathname } = useLocation();
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  for (let i = 0; i < patterns.length; i += 1) {
+    const pattern = patterns[i];
+    const possibleMatch = matchPath(pattern, pathname);
+    if (possibleMatch !== null) {
+      return possibleMatch;
+    }
+  }
+
+  return null;
+}
+
+const NavigationTab = () => {
+  const routeMatch = useRouteMatch(["/", "/products", "/trash"]);
+  const currentTab = routeMatch?.pattern?.path;
 
   return (
-    <Tabs
-      value={value}
-      onChange={handleChange}
-      aria-label="page-navigation"
-      centered
-      sx={{ position: "sticky" }}
-    >
-      <Tab icon={<PhoneIcon />} label="RECENTS" />
-      <Tab icon={<FavoriteIcon />} label="FAVORITES" />
-      <Tab icon={<PersonPinIcon />} label="NEARBY" />
-    </Tabs>
+    <Fragment>
+      <Tabs value={currentTab} centered>
+        <Tab
+          icon={<HomeIcon />}
+          label="Store"
+          value="/"
+          to="/"
+          component={Link}
+        />
+        <Tab
+          icon={<StoreIcon />}
+          label="Products"
+          value="/products"
+          to="/products"
+          component={Link}
+        />
+        <Tab
+          icon={<FavoriteIcon />}
+          label="Trash"
+          value="/trash"
+          to="/trash"
+          component={Link}
+        />
+        <Tab
+          icon={<PersonPinIcon />}
+          label="Trash"
+          value="/trash"
+          to="/trash"
+          component={Link}
+        />
+        <Tab
+          icon={<PersonPinIcon />}
+          label="Trash"
+          value="/trash"
+          to="/trash"
+          component={Link}
+        />
+      </Tabs>
+    </Fragment>
   );
 };
 
