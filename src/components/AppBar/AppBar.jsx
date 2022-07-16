@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { Typography, Avatar, IconButton, Badge, Box } from "@mui/material";
 import { AppBar as MUIAppBar, Container, Toolbar } from "@mui/material";
-import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
+import PropTypes from "prop-types";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 
