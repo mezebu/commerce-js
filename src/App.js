@@ -8,6 +8,7 @@ import Hero from "./components/HeroPage/Hero";
 import NavigationTab from "./components/NavigationTabs/NavigationTab";
 import Footer from "./components/Footer/Footer";
 import ProductsList from "./components/Products/ProductsList";
+import NoMatch from "./components/NoMatch/NoMatch";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -60,9 +61,10 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Hero />} />
             <Route
-              path="/products"
+              path="products"
               element={<ProductsList products={products} />}
             />
+            <Route path="*" element={<NoMatch />} />
           </Routes>
         </Container>
       </Box>
