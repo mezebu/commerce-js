@@ -3,6 +3,7 @@ import React from "react";
 import SwipeableCard from "./SwipeableCard";
 import HeroCardOne from "./HeroCardOne";
 import HeroCardTwo from "./HeroCardTwo";
+import { Outlet } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -14,6 +15,7 @@ const Hero = () => {
         <HeroCardOne />
         <HeroCardTwo />
       </Grid>
+      <Outlet />
     </Grid>
   );
 };
