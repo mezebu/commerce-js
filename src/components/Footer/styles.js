@@ -3,7 +3,7 @@ import { blue, grey } from "@mui/material/colors";
 
 export const Wrapper = styled(Box)(() => ({
   background: "#F6F9FC",
-  height: 50,
+  height: 45,
   display: "flex",
   alignItems: "center",
   position: "fixed",
