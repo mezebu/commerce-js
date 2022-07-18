@@ -20,10 +20,15 @@ const App = () => {
   const searchProduct = (e) => {
     e.preventDefault();
 
-    commerce.products.list({ query: query }).then(({ data }) => {
-      setData(data);
-      setQuery("");
-    });
+    commerce.products
+      .list({ query: query })
+      .then(({ data }) => {
+        setData(data);
+        setQuery("");
+      })
+      .catch((error) =>
+        console.log("There was an error fetching a product", error)
+      );
   };
 
   const handleChange = (event) => {
