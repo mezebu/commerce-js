@@ -13,9 +13,9 @@ import NoMatch from "./components/NoMatch/NoMatch";
 const App = () => {
   const [products, setProducts] = useState([]);
   const [query, setQuery] = useState("");
-  const [data, setData] = useState({});
+  const [queryData, setQueryData] = useState({});
 
-  console.log(data);
+  console.log(queryData);
 
   const searchProduct = (e) => {
     e.preventDefault();
@@ -23,7 +23,7 @@ const App = () => {
     commerce.products
       .list({ query: query })
       .then(({ data }) => {
-        setData(data);
+        setQueryData(data);
         setQuery("");
       })
       .catch((error) =>
@@ -33,6 +33,13 @@ const App = () => {
 
   const handleChange = (event) => {
     setQuery(event.target.value);
+  };
+
+  const sortProducts = () => {
+    commerce.products
+      .list({ sortBy: "price", sortOder: "desc" })
+      .then(({ data }) => setProducts(data))
+      .catch((error) => console.log("Error filtering sort order", error));
   };
 
   useEffect(() => {
@@ -60,7 +67,7 @@ const App = () => {
       />
       <Box sx={{ my: -7 }}>
         <Box sx={{ mb: 1 }}>
-          <NavigationTab />
+          <NavigationTab sortProducts={sortProducts} />
         </Box>
         <Container maxWidth="xl">
           <Routes>
