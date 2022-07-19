@@ -6,6 +6,8 @@ import StoreIcon from "@mui/icons-material/Store";
 import HomeIcon from "@mui/icons-material/Home";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
+import { Box } from "@mui/material";
+import FilterModal from "../FilterModal/FilterModal";
 
 function useRouteMatch(patterns) {
   const { pathname } = useLocation();
@@ -21,49 +23,54 @@ function useRouteMatch(patterns) {
   return null;
 }
 
-const NavigationTab = () => {
+const NavigationTab = ({ sortProducts }) => {
   const routeMatch = useRouteMatch(["/", "/products", "/trash"]);
   const currentTab = routeMatch?.pattern?.path;
 
   return (
     <Fragment>
-      <Tabs value={currentTab} centered>
-        <Tab
-          icon={<HomeIcon />}
-          label="Store"
-          value="/"
-          to="/"
-          component={Link}
-        />
-        <Tab
-          icon={<StoreIcon />}
-          label="Products"
-          value="/products"
-          to="/products"
-          component={Link}
-        />
-        <Tab
-          icon={<FavoriteIcon />}
-          label="Trash"
-          value="/trash"
-          to="/trash"
-          component={Link}
-        />
-        <Tab
-          icon={<PersonPinIcon />}
-          label="Trash"
-          value="/trash"
-          to="/trash"
-          component={Link}
-        />
-        <Tab
-          icon={<PersonPinIcon />}
-          label="Trash"
-          value="/trash"
-          to="/trash"
-          component={Link}
-        />
-      </Tabs>
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <Tabs
+          value={currentTab}
+          centered
+          variant="scrollable"
+          scrollButtons="auto"
+        >
+          <Tab
+            icon={<HomeIcon />}
+            label="Store"
+            value="/"
+            to="/"
+            component={Link}
+          />
+          <Tab
+            icon={<StoreIcon />}
+            label="Products"
+            value="/products"
+            to="/products"
+            component={Link}
+          />
+          <Tab
+            icon={<FavoriteIcon />}
+            label="Trash"
+            value="/trash"
+            to="/trash"
+            component={Link}
+          />
+          <Tab
+            icon={<PersonPinIcon />}
+            label="Trash"
+            value="/trash"
+            to="/trash"
+            component={Link}
+          />
+        </Tabs>
+        <Box sx={{ ml: 1 }}>
+          <FilterModal sortProducts={sortProducts} />
+        </Box>
+      </Box>
     </Fragment>
   );
 };
