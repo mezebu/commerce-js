@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { Typography, Avatar, IconButton, Badge, Box } from "@mui/material";
 import { AppBar as MUIAppBar, Container, Toolbar } from "@mui/material";
-import { useLocation } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import PropTypes from "prop-types";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
@@ -11,7 +10,6 @@ import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 
 const AppBar = ({ query, handleChange, searchProduct }) => {
   const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
-  const location = useLocation();
 
   return (
     <Fragment>
@@ -49,15 +47,13 @@ const AppBar = ({ query, handleChange, searchProduct }) => {
                   onChange={handleChange}
                 />
               </Search>
-              {location.pathname === "/" ? null : (
-                <Badge badgeContent={4} color="primary">
-                  <Avatar>
-                    <IconButton aria-label="shopping-cart">
-                      <LocalMallOutlinedIcon />
-                    </IconButton>
-                  </Avatar>
-                </Badge>
-              )}
+              <Badge badgeContent={4} color="primary">
+                <Avatar>
+                  <IconButton aria-label="shopping-cart">
+                    <LocalMallOutlinedIcon />
+                  </IconButton>
+                </Avatar>
+              </Badge>
             </Box>
           </Toolbar>
         </Container>
