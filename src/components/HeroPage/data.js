@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
-import SavingsIcon from "@mui/icons-material/Savings";
+import SavingsOutlinedIcon from "@mui/icons-material/SavingsOutlined";
 import TimerOutlinedIcon from "@mui/icons-material/TimerOutlined";
 import CreditScoreRoundedIcon from "@mui/icons-material/CreditScoreRounded";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 
 export const locationImages = [
   {
@@ -42,13 +42,13 @@ export const locationImages = [
 export const widgetsItems = [
   {
     id: uuidv4(),
-    icon: <LocalShippingIcon sx={{ fontSize: 50 }} />,
+    icon: <LocalShippingOutlinedIcon sx={{ fontSize: 50 }} />,
     title: "Fast Delivery",
     subTitle: "Start from $5",
   },
   {
     id: uuidv4(),
-    icon: <SavingsIcon sx={{ fontSize: 50 }} />,
+    icon: <SavingsOutlinedIcon sx={{ fontSize: 50 }} />,
     title: "Money Guarantee",
     subTitle: "7 Days back",
   },
