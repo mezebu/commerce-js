@@ -8,7 +8,7 @@ const HeroWidgets = () => {
     <Box sx={{ mt: 3 }}>
       <Grid container spacing={2}>
         {widgetsItems.map((item) => (
-          <Grid key={item.id} item xs={6} sm={6} md={6} lg={3}>
+          <Grid key={item.id} item xs={12} sm={6} md={6} lg={3}>
             <WidgetsCard item={item} />
           </Grid>
         ))}
