@@ -8,6 +8,14 @@ const theme = createTheme({
       textTransform: "none",
     },
   },
+  shape: {
+    borderRadius: 5,
+  },
+  palette: {
+    primary: {
+      main: "#1fa2ff",
+    },
+  },
 });
 
 const AppThemeProvider = ({ children }) => {
