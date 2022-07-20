@@ -5,7 +5,6 @@ import Tab from "@mui/material/Tab";
 import StoreIcon from "@mui/icons-material/Store";
 import HomeIcon from "@mui/icons-material/Home";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import PersonPinIcon from "@mui/icons-material/PersonPin";
 import { Box } from "@mui/material";
 import FilterModal from "../FilterModal/FilterModal";
 
@@ -32,12 +31,7 @@ const NavigationTab = ({ sortProducts }) => {
       <Box
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Tabs
-          value={currentTab}
-          centered
-          variant="scrollable"
-          scrollButtons="auto"
-        >
+        <Tabs value={currentTab} variant="scrollable" scrollButtons="auto">
           <Tab
             icon={<HomeIcon />}
             label="Store"
@@ -54,13 +48,6 @@ const NavigationTab = ({ sortProducts }) => {
           />
           <Tab
             icon={<FavoriteIcon />}
-            label="Trash"
-            value="/trash"
-            to="/trash"
-            component={Link}
-          />
-          <Tab
-            icon={<PersonPinIcon />}
             label="Trash"
             value="/trash"
             to="/trash"
