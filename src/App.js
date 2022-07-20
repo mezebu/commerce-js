@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Container, CssBaseline } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 import { commerce } from "./lib/commerce";
@@ -9,6 +9,7 @@ import NavigationTab from "./components/NavigationTabs/NavigationTab";
 import Footer from "./components/Footer/Footer";
 import ProductsList from "./components/Products/ProductsList";
 import NoMatch from "./components/NoMatch/NoMatch";
+import ProductDescription from "./components/Products/ProductDescription";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -58,7 +59,12 @@ const App = () => {
   };
 
   return (
-    <Fragment>
+    <Box
+      sx={{
+        background: "#eef2f3",
+        backgroundColor: "linear-gradient(to right, #8e9eab, #eef2f3)",
+      }}
+    >
       <CssBaseline />
       <AppBar
         searchProduct={searchProduct}
@@ -66,23 +72,24 @@ const App = () => {
         query={query}
       />
       <Box sx={{ my: -7 }}>
-        <Box sx={{ mb: 1 }}>
-          <NavigationTab sortProducts={sortProducts} />
-        </Box>
         <Container maxWidth="xl">
+          <Box sx={{ mb: 1 }}>
+            <NavigationTab sortProducts={sortProducts} />
+          </Box>
           <Routes>
             <Route path="/" element={<Hero />} />
             <Route
               path="products"
               element={<ProductsList products={products} />}
             />
+            <Route path=":productId" element={<ProductDescription />} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </Container>
       </Box>
 
       <Footer />
-    </Fragment>
+    </Box>
   );
 };
 
