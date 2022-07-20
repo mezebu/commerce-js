@@ -1,7 +1,14 @@
 import React, { Fragment } from "react";
-import { Typography, Avatar, IconButton, Badge, Box } from "@mui/material";
+import {
+  Typography,
+  Avatar,
+  IconButton,
+  Badge,
+  Box,
+  useMediaQuery,
+} from "@mui/material";
 import { AppBar as MUIAppBar, Container, Toolbar } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import PropTypes from "prop-types";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import SearchIcon from "@mui/icons-material/Search";
@@ -10,6 +17,8 @@ import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 
 const AppBar = ({ query, handleChange, searchProduct }) => {
   const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Fragment>
@@ -32,7 +41,11 @@ const AppBar = ({ query, handleChange, searchProduct }) => {
               justifyContent: "space-between",
             }}
           >
-            <Typography variant="h6" component="div">
+            <Typography
+              sx={{ display: matches ? "none" : "block" }}
+              variant="h6"
+              component="div"
+            >
               Logo
             </Typography>
             <Box sx={{ display: "flex" }}>
