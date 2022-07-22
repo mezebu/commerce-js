@@ -10,10 +10,13 @@ const ProductDescription = () => {
 
   useEffect(() => {
     const handleDescription = () => {
-      commerce.products.retrieve(productId).then((data) => {
-        setProductDsec(data);
-        console.log(data);
-      });
+      commerce.products
+        .retrieve(productId)
+        .then((data) => {
+          setProductDsec(data);
+          console.log(data);
+        })
+        .catch((error) => console.log("Could not fetch Product", error));
     };
 
     handleDescription();
