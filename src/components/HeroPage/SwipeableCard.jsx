@@ -15,6 +15,7 @@ import { red } from "@mui/material/colors";
 
 import { fixedBottom, SwipeablelImage } from "./styles";
 import { locationImages } from "./data";
+import { useNavigate } from "react-router-dom";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -24,6 +25,7 @@ const SwipeableCard = () => {
   const maxSteps = data.length;
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const navigate = useNavigate();
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -88,6 +90,7 @@ const SwipeableCard = () => {
       <Paper
         square
         elevation={0}
+        variant="outlined"
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -115,7 +118,11 @@ const SwipeableCard = () => {
           {data[activeStep].desc}
         </Typography>
         <Box sx={{ mt: 2 }}>
-          <Button variant="contained" disableElevation>
+          <Button
+            variant="contained"
+            disableElevation
+            onClick={() => navigate("/products")}
+          >
             {data[activeStep].link}
           </Button>
         </Box>
