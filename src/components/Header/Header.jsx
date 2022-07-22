@@ -1,21 +1,28 @@
-import React from "react";
-import { Box, Toolbar, Typography } from "@mui/material";
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
 import AppBar from "../AppBar/AppBar";
 import DrawerAppBar from "../Drawer/DrawerAppBar";
 
-const Header = ({ children }) => {
+function Header({ searchProduct, handleChange, query }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar />
+      <AppBar handleDrawerToggle={handleDrawerToggle} />
       <Box component="nav">
-        <DrawerAppBar />
+        <DrawerAppBar
+          mobileOpen={mobileOpen}
+          handleDrawerToggle={handleDrawerToggle}
+        />
       </Box>
-      <Box component="main" sx={{ p: 3 }}>
-        <Toolbar />
-        <Typography>{children}</Typography>
-      </Box>
+      <Toolbar />
     </Box>
   );
-};
+}
 
 export default Header;
