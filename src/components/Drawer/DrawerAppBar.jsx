@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -12,13 +12,7 @@ import Typography from "@mui/material/Typography";
 const drawerWidth = 240;
 const navItems = ["Home", "About", "Contact"];
 
-const DrawerAppBar = () => {
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
+const DrawerAppBar = ({ mobileOpen, handleDrawerToggle }) => {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
@@ -37,13 +31,9 @@ const DrawerAppBar = () => {
     </Box>
   );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box component="nav">
       <Drawer
-        container={container}
         variant="temporary"
         open={mobileOpen}
         onClose={handleDrawerToggle}
@@ -64,5 +54,6 @@ const DrawerAppBar = () => {
 export default DrawerAppBar;
 
 DrawerAppBar.propTypes = {
-  window: PropTypes.func,
+  handleDrawerToggle: PropTypes.func,
+  mobileOpen: PropTypes.bool,
 };
