@@ -8,10 +8,12 @@ import Typography from "@mui/material/Typography";
 import NikeShoe from "../../assets/nike-shoes.png";
 import { Button, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 const HeroCardOne = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const navigate = useNavigate();
 
   return (
     <Card
@@ -76,7 +78,11 @@ const HeroCardOne = () => {
                 a running staple into a shoe that can go just about anywhere.
               </Typography>
               <Box sx={{ mt: 2 }}>
-                <Button variant="contained" disableElevation>
+                <Button
+                  variant="contained"
+                  disableElevation
+                  onClick={() => navigate("/products")}
+                >
                   Shop Now
                 </Button>
               </Box>
