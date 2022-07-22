@@ -1,14 +1,13 @@
-import { Grid, Container } from "@mui/material";
+import { Grid } from "@mui/material";
 import React from "react";
 import SwipeableCard from "./SwipeableCard";
 import HeroCardOne from "./HeroCardOne";
 import HeroCardTwo from "./HeroCardTwo";
-import { Outlet } from "react-router-dom";
 import HeroWidgets from "./HeroWidgets";
 
 const Hero = () => {
   return (
-    <Container>
+    <>
       <Grid container spacing={3}>
         <Grid item lg={4} md={4} sm={12} xs={12}>
           <SwipeableCard />
@@ -18,11 +17,9 @@ const Hero = () => {
           <HeroCardTwo />
         </Grid>
       </Grid>
-
       <HeroWidgets />
 
-      <Outlet />
-    </Container>
+    </>
   );
 };
 
