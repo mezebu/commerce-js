@@ -15,7 +15,7 @@ import Cart from "./components/Cart/Cart";
 const App = () => {
   return (
     <CommerceContext>
-      <Box sx={{ backgroundColor: "#F6F9FC" }}>
+      <Box>
         <CssBaseline />
         <Header />
         <Container maxWidth="xl">
