@@ -12,6 +12,10 @@ const theme = createTheme({
     borderRadius: 5,
   },
   palette: {
+    mode: "light",
+    background: {
+      default: "#F6F9FC",
+    },
     primary: {
       main: "#1fa2ff",
     },
