@@ -41,6 +41,7 @@ const CartItem = ({ lineItems, totalItems, subTotal }) => {
             <TableRow
               key={id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              hover
             >
               <TableCell component="th" scope="row">
                 <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -76,14 +77,14 @@ const CartItem = ({ lineItems, totalItems, subTotal }) => {
                     size="small"
                     onClick={() => handleCartUpdate(id, quantity - 1)}
                   >
-                    <RemoveRoundedIcon fontSize="small" />
+                    <RemoveRoundedIcon sx={{ fontSize: 15 }} />
                   </IconButton>
                   <Typography variant="subtitle2">{quantity}</Typography>
                   <IconButton
                     size="small"
                     onClick={() => handleCartUpdate(id, quantity + 1)}
                   >
-                    <AddRoundedIcon fontSize="small" />
+                    <AddRoundedIcon sx={{ fontSize: 15 }} />
                   </IconButton>
                 </Box>
               </TableCell>
