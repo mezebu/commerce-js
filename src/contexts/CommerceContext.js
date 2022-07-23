@@ -60,6 +60,33 @@ export function CommerceContext({ children }) {
       );
   };
 
+  const handleCartUpdate = async (lineItemId, quantity) => {
+    try {
+      const data = await commerce.cart.update(lineItemId, { quantity });
+      setCart(data.cart);
+    } catch (error) {
+      console.log("error updating cart", error);
+    }
+  };
+
+  const handleRemoveFromCart = async (itemId) => {
+    try {
+      const response = await commerce.cart.remove(itemId);
+      setCart(response.cart);
+    } catch (error) {
+      console.log("Error deleting cart", error);
+    }
+  };
+
+  const handleEmptyCart = async () => {
+    try {
+      const response = await commerce.cart.empty();
+      setCart(response.cart);
+    } catch (error) {
+      console.log("There was an error emptying the cart", error);
+    }
+  };
+
   const sortByPrice = (sortOrder) => {
     commerce.products
       .list({ sortBy: "price", sortDirection: sortOrder })
@@ -67,9 +94,9 @@ export function CommerceContext({ children }) {
       .catch((error) => console.log("Error filtering sort order", error));
   };
 
-  const sortByName = () => {
+  const sortByName = (sortOrder) => {
     commerce.products
-      .list({ sortBy: "name" })
+      .list({ sortBy: "name", sortDirection: sortOrder })
       .then(({ data }) => setProducts(data))
       .catch((error) => console.log(error));
   };
@@ -91,6 +118,9 @@ export function CommerceContext({ children }) {
         queryData,
         handleAddToCart,
         cart,
+        handleCartUpdate,
+        handleRemoveFromCart,
+        handleEmptyCart,
       }}
     >
       {children}
