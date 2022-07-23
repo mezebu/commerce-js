@@ -1,6 +1,7 @@
 import React from "react";
-import { Typography, Avatar, IconButton, Badge } from "@mui/material";
-import { AppBar as MUIAppBar, Box, Toolbar } from "@mui/material";
+import { Typography, Avatar, IconButton, Container } from "@mui/material";
+import { AppBar as MUIAppBar, Box, Badge, Toolbar } from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import SearchIcon from "@mui/icons-material/Search";
@@ -8,9 +9,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 import { Link } from "react-router-dom";
+import { useCommerce } from "../../contexts/CommerceContext";
 
-//prettier-ignore
-const AppBar = ({ query, handleChange, searchProduct, handleDrawerToggle }) => {
+const AppBar = ({ handleDrawerToggle }) => {
+  const { query, handleChange, searchProduct, cart } = useCommerce();
+  const openButton = cart !== null ? cart.total_items : "";
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -24,25 +29,25 @@ const AppBar = ({ query, handleChange, searchProduct, handleDrawerToggle }) => {
           border: "1px solid rgba( 255, 255, 255, 0.18 )",
         }}
       >
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-          >
-            <Link to='/'>Logo</Link>
-            
-          </Typography>
+        <Container maxWidth="xl">
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            >
+              <Link to="/">Logo</Link>
+            </Typography>
             <Search onSubmit={searchProduct}>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -53,17 +58,23 @@ const AppBar = ({ query, handleChange, searchProduct, handleDrawerToggle }) => {
                 value={query}
                 onChange={handleChange}
               />
-          </Search>
-          <Box sx={{p:2}}>
-            <Badge badgeContent={4} color="primary">
-              <Avatar>
-                <IconButton aria-label="shopping-cart">
-                  <LocalMallOutlinedIcon />
-                </IconButton>
-              </Avatar>
-            </Badge>
-          </Box>         
-        </Toolbar>
+            </Search>
+            <Box sx={{ p: 2 }}>
+              {pathname !== "/cart" && (
+                <Badge badgeContent={openButton} color="primary">
+                  <Avatar>
+                    <IconButton
+                      aria-label="shopping-cart"
+                      onClick={() => navigate("/cart")}
+                    >
+                      <LocalMallOutlinedIcon />
+                    </IconButton>
+                  </Avatar>
+                </Badge>
+              )}
+            </Box>
+          </Toolbar>
+        </Container>
       </MUIAppBar>
     </Box>
   );
@@ -72,8 +83,5 @@ const AppBar = ({ query, handleChange, searchProduct, handleDrawerToggle }) => {
 export default AppBar;
 
 AppBar.propTypes = {
-  handleChange: PropTypes.func,
-  searchProduct: PropTypes.func,
-  query: PropTypes.string,
   handleDrawerToggle: PropTypes.func,
 };
