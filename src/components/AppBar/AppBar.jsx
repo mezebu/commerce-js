@@ -23,7 +23,7 @@ const AppBar = ({ handleDrawerToggle }) => {
         component="nav"
         elevation={0}
         sx={{
-          background: "rgba( 255, 255, 255, 0.35 )",
+          background: "rgba( 255, 255, 255, 0.4 )",
           backdropFilter: "blur( 4px )",
           WebkitBackdropFilter: "blur( 4px )",
           border: "1px solid rgba( 255, 255, 255, 0.18 )",
