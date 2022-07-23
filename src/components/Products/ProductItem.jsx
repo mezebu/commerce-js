@@ -1,19 +1,19 @@
 import React from "react";
-import PropTypes from "prop-types";
-import {
-  CardActions,
-  CardContent,
-  CardMedia,
-  Button,
-  Typography,
-} from "@mui/material";
+import { CardMedia, Button, Typography } from "@mui/material";
+import { CardActions, CardContent } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
 import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
-import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+
 import { ProductWrapper } from "./styles";
 
-const ProductItem = ({ product }) => {
+const ProductItem = ({ product, onAddToCart }) => {
   const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    onAddToCart(product.id, 1);
+  };
 
   const handleDescription = (id) => {
     navigate(`/${id}`);
@@ -31,7 +31,12 @@ const ProductItem = ({ product }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Button startIcon={<AddShoppingCartRoundedIcon />}>Add Item</Button>
+        <Button
+          startIcon={<AddShoppingCartRoundedIcon />}
+          onClick={handleAddToCart}
+        >
+          Add Item
+        </Button>
         <Button
           startIcon={<RemoveRedEyeRoundedIcon />}
           onClick={() => handleDescription(product.id)}
