@@ -9,7 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import PaidIcon from "@mui/icons-material/Paid";
 
-import { StyledTableCell } from "./styles";
+import { ActionButtons, StyledTableCell } from "./styles";
 import { useCommerce } from "../../contexts/CommerceContext";
 
 const CartItem = ({ lineItems, totalItems, subTotal }) => {
@@ -62,17 +62,7 @@ const CartItem = ({ lineItems, totalItems, subTotal }) => {
                 </Typography>
               </TableCell>
               <TableCell align="left">
-                <Box
-                  sx={{
-                    border: "1px solid rgba(145, 158, 171, 0.32)",
-                    borderRadius: 1,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    width: 90,
-                    height: 40,
-                  }}
-                >
+                <ActionButtons>
                   <IconButton
                     size="small"
                     onClick={() => handleCartUpdate(id, quantity - 1)}
@@ -86,7 +76,7 @@ const CartItem = ({ lineItems, totalItems, subTotal }) => {
                   >
                     <AddRoundedIcon sx={{ fontSize: 15 }} />
                   </IconButton>
-                </Box>
+                </ActionButtons>
               </TableCell>
               <TableCell align="right">
                 <Typography variant="subtitle2">
