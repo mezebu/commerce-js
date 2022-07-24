@@ -1,8 +1,11 @@
 import React from "react";
-import { Box, Button, Container, Paper, Typography } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
+import { Container, Paper, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import CartItem from "./CartItem";
+
+import { CenteredFlexItems } from "../../universalStyles";
 import { useCommerce } from "../../contexts/CommerceContext";
+import CartItem from "./CartItem";
 
 const Cart = () => {
   const { cart } = useCommerce();
@@ -11,28 +14,24 @@ const Cart = () => {
   const EmptyCart = () => {
     return (
       <Paper elevation={0}>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "50vh",
-          }}
-        >
+        <CenteredFlexItems sx={{ height: "60vh", flexDirection: "column" }}>
           <Typography>Your cart is empty</Typography>
           <Box sx={{ p: 2 }}>
             <Button variant="outlined" onClick={() => navigate("/products")}>
               Continue Shopping
             </Button>
           </Box>
-        </Box>
+        </CenteredFlexItems>
       </Paper>
     );
   };
 
   if (!cart.line_items) {
-    return "Loading...";
+    return (
+      <CenteredFlexItems sx={{ height: "60vh" }}>
+        <CircularProgress />
+      </CenteredFlexItems>
+    );
   }
 
   return (
