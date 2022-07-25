@@ -1,26 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { Box, Card, CircularProgress, Container } from "@mui/material";
-import { Divider, IconButton, Typography } from "@mui/material";
-import { CardContent, Grid, Stack, CardMedia } from "@mui/material";
+import { CardContent, Card, Grid, Stack, CardMedia } from "@mui/material";
+import { Divider, Snackbar, IconButton, Typography } from "@mui/material";
+import { Alert, Box, CircularProgress, Container } from "@mui/material";
+import { useParams, useNavigate } from "react-router-dom";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { useParams, useNavigate } from "react-router-dom";
 
 import { commerce } from "../../lib/commerce";
-import { ActionButtons, CartButton, Divide, BuyButton } from "./styles";
-import { SpaceBtwFlexItems, CenteredFlexItems } from "../../universalStyles";
 import { useCommerce } from "../../contexts/CommerceContext";
 
+import { ActionButtons, CartButton, Divide, BuyButton } from "./styles";
+import {
+  SpaceBtwFlexItems,
+  CenteredFlexItems,
+} from "../../themes/universalStyles";
+
 const ProductDescription = () => {
+  const { handleAddToCart, setOpen, open, handleClose } = useCommerce();
   let { productId } = useParams();
   const navigate = useNavigate();
-  const { handleAddToCart } = useCommerce();
+
   const [productDsec, setProductDsec] = useState({});
   const [loading, setLoading] = useState(false);
-  console.log(productDsec);
 
   const { media, name, price, seo, description, id } = productDsec;
+
+  const addToCartHandler = () => {
+    handleAddToCart(id, 1);
+    setOpen(true);
+  };
 
   useEffect(() => {
     const handleDescription = async () => {
@@ -117,7 +126,7 @@ const ProductDescription = () => {
                           startIcon={<AddShoppingCartIcon />}
                           variant="contained"
                           disableElevation
-                          onClick={() => handleAddToCart(id, 1)}
+                          onClick={addToCartHandler}
                         >
                           Add to cart
                         </CartButton>
@@ -137,6 +146,11 @@ const ProductDescription = () => {
           )}
         </Card>
       </Box>
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          {`${name} has been added to cart`}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
