@@ -60,7 +60,7 @@ const AppBar = ({ handleDrawerToggle }) => {
               />
             </Search>
             <Box sx={{ p: 2 }}>
-              {pathname !== "/cart" && (
+              {pathname === "/products" && (
                 <Badge badgeContent={openButton} color="primary">
                   <Avatar>
                     <IconButton
