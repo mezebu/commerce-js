@@ -14,6 +14,7 @@ export function CommerceContext({ children }) {
   const [query, setQuery] = useState("");
   const [cart, setCart] = useState({});
   const [open, setOpen] = useState(false);
+  const [checkoutToken, setCheckOutToken] = useState({});
 
   const navigate = useNavigate();
 
@@ -122,6 +123,22 @@ export function CommerceContext({ children }) {
     fetchCart();
   }, []);
 
+  useEffect(() => {
+    const getCheckOutToken = async () => {
+      if (cart.line_items.length) {
+        try {
+          const token = await commerce.checkout.generateToken(cart.id, {
+            type: "cart",
+          });
+          setCheckOutToken(token);
+        } catch (error) {
+          console.log("There was an error generating token", error);
+        }
+      }
+    };
+    getCheckOutToken();
+  }, [cart]);
+
   return (
     <ProductsContext.Provider
       value={{
@@ -140,6 +157,7 @@ export function CommerceContext({ children }) {
         open,
         handleClose,
         setOpen,
+        checkoutToken,
       }}
     >
       {children}
