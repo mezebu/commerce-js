@@ -13,7 +13,6 @@ import { useCommerce } from "../../contexts/CommerceContext";
 
 const AppBar = ({ handleDrawerToggle }) => {
   const { query, handleChange, searchProduct, cart } = useCommerce();
-  const openButton = cart !== null ? cart.total_items : "";
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -61,15 +60,17 @@ const AppBar = ({ handleDrawerToggle }) => {
             </Search>
             <Box sx={{ p: 2 }}>
               {pathname === "/products" && (
-                <Badge badgeContent={openButton} color="primary">
-                  <Avatar>
-                    <IconButton
-                      aria-label="shopping-cart"
-                      onClick={() => navigate("/cart")}
-                    >
-                      <LocalMallOutlinedIcon />
-                    </IconButton>
-                  </Avatar>
+                <Badge badgeContent={cart.total_items} color="primary">
+                  {cart !== null && (
+                    <Avatar>
+                      <IconButton
+                        aria-label="shopping-cart"
+                        onClick={() => navigate("/cart")}
+                      >
+                        <LocalMallOutlinedIcon />
+                      </IconButton>
+                    </Avatar>
+                  )}
                 </Badge>
               )}
             </Box>
