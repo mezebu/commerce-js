@@ -4,7 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import AppBar from "../AppBar/AppBar";
 import DrawerAppBar from "../Drawer/DrawerAppBar";
 
-function Header({ searchProduct, handleChange, query }) {
+function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
