@@ -11,8 +11,9 @@ import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 import { Link } from "react-router-dom";
 import { useCommerce } from "../../contexts/CommerceContext";
 
-const AppBar = ({ handleDrawerToggle }) => {
-  const { query, handleChange, searchProduct, cart } = useCommerce();
+// prettier-ignore
+const AppBar = ({ handleDrawerToggle}) => {
+const {searchProduct, query, handleChange, cart} = useCommerce()
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -61,16 +62,14 @@ const AppBar = ({ handleDrawerToggle }) => {
             <Box sx={{ p: 2 }}>
               {pathname === "/products" && (
                 <Badge badgeContent={cart.total_items} color="primary">
-                  {cart !== null && (
-                    <Avatar>
-                      <IconButton
-                        aria-label="shopping-cart"
-                        onClick={() => navigate("/cart")}
-                      >
-                        <LocalMallOutlinedIcon />
-                      </IconButton>
-                    </Avatar>
-                  )}
+                  <Avatar>
+                    <IconButton
+                      aria-label="shopping-cart"
+                      onClick={() => navigate("/cart")}
+                    >
+                      <LocalMallOutlinedIcon />
+                    </IconButton>
+                  </Avatar>
                 </Badge>
               )}
             </Box>
