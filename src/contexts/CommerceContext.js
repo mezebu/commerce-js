@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { commerce } from "../lib/commerce";
+import commerce from "../lib/commerce";
 
 const ProductsContext = createContext();
 
@@ -13,17 +13,19 @@ export function CommerceContext({ children }) {
   const [products, setProducts] = useState([]);
   const [query, setQuery] = useState("");
   const [cart, setCart] = useState({});
-  const [open, setOpen] = useState(false);
-  const [checkoutToken, setCheckOutToken] = useState({});
+  const [order, setOrder] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
+  const fetchProducts = async () => {
+    try {
+      const { data } = await commerce.products.list();
 
-    setOpen(false);
+      setProducts(data);
+    } catch (error) {
+      console.log("There was an error fetching the products", error);
+    }
   };
 
   const searchProduct = (e) => {
@@ -45,14 +47,20 @@ export function CommerceContext({ children }) {
     setQuery(event.target.value);
   };
 
-  const fetchProducts = async () => {
-    try {
-      const { data } = await commerce.products.list();
+  const sortByPrice = (sortOrder) => {
+    commerce.products
+      .list({ sortBy: "price", sortDirection: sortOrder })
+      .then(({ data }) => {
+        setProducts(data);
+      })
+      .catch((error) => console.log("Error filtering sort order", error));
+  };
 
-      setProducts(data);
-    } catch (error) {
-      console.log("There was an error fetching the products", error);
-    }
+  const sortByName = (sortOrder) => {
+    commerce.products
+      .list({ sortBy: "name", sortDirection: sortOrder })
+      .then(({ data }) => setProducts(data))
+      .catch((error) => console.log(error));
   };
 
   const fetchCart = () => {
@@ -64,24 +72,24 @@ export function CommerceContext({ children }) {
       );
   };
 
-  const handleAddToCart = async (productId, quantity) => {
-    try {
-      const { cart } = await commerce.cart.add(productId, quantity);
-
-      setCart(cart);
-    } catch (error) {
-      console.log("There was an error adding item to cart", error);
-    }
-  };
-
   const handleCartUpdate = async (lineItemId, quantity) => {
     try {
       const { cart } = await commerce.cart.update(lineItemId, { quantity });
       setCart(cart);
-      setOpen(true);
     } catch (error) {
       console.log("error updating cart", error);
     }
+  };
+
+  const handleAddToCart = (productId, quantity) => {
+    commerce.cart
+      .add(productId, quantity)
+      .then((item) => {
+        setCart(item.cart);
+      })
+      .catch((error) => {
+        console.error("There was an error adding the item to the cart", error);
+      });
   };
 
   const handleRemoveFromCart = async (itemId) => {
@@ -102,42 +110,33 @@ export function CommerceContext({ children }) {
     }
   };
 
-  const sortByPrice = (sortOrder) => {
-    commerce.products
-      .list({ sortBy: "price", sortDirection: sortOrder })
-      .then(({ data }) => {
-        setProducts(data);
-      })
-      .catch((error) => console.log("Error filtering sort order", error));
+  const refreshCart = async () => {
+    try {
+      const newCart = commerce.cart.refresh();
+      setCart(newCart);
+    } catch (error) {
+      console.log("There was an error refreshing your cart", error);
+    }
   };
 
-  const sortByName = (sortOrder) => {
-    commerce.products
-      .list({ sortBy: "name", sortDirection: sortOrder })
-      .then(({ data }) => setProducts(data))
-      .catch((error) => console.log(error));
+  const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
+    try {
+      const response = await commerce.checkout.capture(
+        checkoutTokenId,
+        newOrder
+      );
+      setOrder(response);
+      refreshCart();
+    } catch (error) {
+      console.log("There was an error confirming your order", error);
+      setErrorMessage(error.data.error.message);
+    }
   };
 
   useEffect(() => {
-    fetchProducts();
     fetchCart();
+    fetchProducts();
   }, []);
-
-  useEffect(() => {
-    const getCheckOutToken = async () => {
-      if (cart.line_items.length) {
-        try {
-          const token = await commerce.checkout.generateToken(cart.id, {
-            type: "cart",
-          });
-          setCheckOutToken(token);
-        } catch (error) {
-          console.log("There was an error generating token", error);
-        }
-      }
-    };
-    getCheckOutToken();
-  }, [cart]);
 
   return (
     <ProductsContext.Provider
@@ -154,10 +153,9 @@ export function CommerceContext({ children }) {
         handleCartUpdate,
         handleRemoveFromCart,
         handleEmptyCart,
-        open,
-        handleClose,
-        setOpen,
-        checkoutToken,
+        handleCaptureCheckout,
+        order,
+        errorMessage,
       }}
     >
       {children}
