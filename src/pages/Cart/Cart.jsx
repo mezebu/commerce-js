@@ -4,8 +4,8 @@ import { Container, Paper, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import { CenteredFlexItems } from "../../themes/universalStyles";
-import { useCommerce } from "../../contexts/CommerceContext";
 import CartItem from "./CartItem";
+import { useCommerce } from "../../contexts/CommerceContext";
 
 const Cart = () => {
   const { cart } = useCommerce();
