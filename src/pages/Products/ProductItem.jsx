@@ -15,16 +15,16 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const ProductItem = ({ product, onAddToCart }) => {
-  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleAddToCart = () => {
     onAddToCart(product.id, 1);
     setOpen(true);
   };
 
-  const handleDescription = (id) => {
-    navigate(`/${id}`);
+  const handleDescription = (productId) => {
+    navigate(`/${productId}`);
   };
 
   const handleClose = (event, reason) => {
@@ -35,7 +35,7 @@ const ProductItem = ({ product, onAddToCart }) => {
     setOpen(false);
   };
 
-  const { image, name, price } = product;
+  const { image, name, price, id } = product;
 
   return (
     <ProductWrapper elevation={0} variant="outlined">
@@ -52,15 +52,15 @@ const ProductItem = ({ product, onAddToCart }) => {
         <Stack direction="row" spacing={1}>
           <Button
             startIcon={<AddShoppingCartRoundedIcon />}
-            onClick={handleAddToCart}
             variant="outlined"
+            onClick={handleAddToCart}
           >
             Add
           </Button>
           <Button
             startIcon={<RemoveRedEyeRoundedIcon />}
-            onClick={() => handleDescription(product.id)}
             variant="outlined"
+            onClick={() => handleDescription(id)}
           >
             Description
           </Button>
@@ -79,4 +79,5 @@ export default ProductItem;
 
 ProductItem.propTypes = {
   product: PropTypes.object,
+  onAddToCart: PropTypes.func,
 };
