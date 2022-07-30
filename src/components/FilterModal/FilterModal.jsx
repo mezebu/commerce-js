@@ -3,6 +3,7 @@ import { Backdrop, Box, Paper, Button, Modal, Typography } from "@mui/material";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
 import Fade from "./Fade";
+import { ColorButton } from "./styles";
 
 const style = {
   position: "absolute",
@@ -39,6 +40,7 @@ const FilterModal = ({ sortProducts }) => {
       >
         <Fade in={open}>
           <Paper sx={style}>
+            <ColorButton>test</ColorButton>
             <Typography id="spring-modal-title" variant="h6" component="h2">
               Text in a modal
             </Typography>
