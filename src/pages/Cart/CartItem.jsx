@@ -40,7 +40,7 @@ const CartItem = ({ lineItems, totalItems, subTotal }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {lineItems.map(({ id, media, name, price, quantity, line_total }) => (
+          {lineItems.map(({ id, image, name, price, quantity, line_total }) => (
             <TableRow
               key={id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -49,7 +49,7 @@ const CartItem = ({ lineItems, totalItems, subTotal }) => {
               <TableCell component="th" scope="row">
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <Avatar
-                    src={media?.source}
+                    src={image?.url}
                     alt={name}
                     sx={{ height: 60, width: 60 }}
                     variant="rounded"
