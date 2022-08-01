@@ -13,11 +13,9 @@ import { SpaceBtwFlexItems } from "../../themes/universalStyles";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
-const PaymentForm = ({ shippingData, backStep, nextStep }) => {
-  const { checkoutToken, handleCaptureCheckout } = useCommerce();
+const PaymentForm = ({ shippingData, checkoutToken, backStep, nextStep }) => {
+  const { handleCaptureCheckout } = useCommerce();
   console.log(shippingData);
-  /*  const stripe = useStripe();
-  const elements = useElements(); */
 
   const handleSubmit = async (event, elements, stripe) => {
     event.prventDefault();
@@ -33,7 +31,7 @@ const PaymentForm = ({ shippingData, backStep, nextStep }) => {
       console.log(error.message);
     } else {
       const orderData = {
-        line_items: checkoutToken.live.line_items,
+        line_items: checkoutToken.line_items,
         customer: {
           firstname: shippingData.firstname,
           lastname: shippingData.lastname,
@@ -64,8 +62,8 @@ const PaymentForm = ({ shippingData, backStep, nextStep }) => {
 
   return (
     <Box>
-      <PurchaseSummary />
       <Box>
+        <PurchaseSummary {...{ checkoutToken }} />
         <Typography sx={{ mt: 2 }} variant="h6" align="center" gutterBottom>
           Payment Methods
         </Typography>
