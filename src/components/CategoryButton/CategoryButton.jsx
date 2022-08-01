@@ -43,6 +43,7 @@ const CategoryButton = () => {
     sortByName("desc");
     setOpen(false);
   };
+
   return (
     <div>
       <Button
@@ -59,25 +60,28 @@ const CategoryButton = () => {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <Box
-          sx={{
-            padding: 2,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+        <Box sx={{ padding: 2, display: "flex", alignItems: "center" }}>
           <IconButton onClick={handleClose}>
-            <CloseRoundedIcon />
+            <CloseRoundedIcon fontSize="small" />
           </IconButton>
-          <Typography variant="h6" align="left">
-            Filters
-          </Typography>
+          <Box sx={{ marginLeft: "auto", marginRight: "auto" }}>
+            <Typography variant="h6">Filters</Typography>
+          </Box>
         </Box>
         <Divider />
+        <DialogTitle>Sort Direction</DialogTitle>
+        <DialogContent>
+          <DialogContentText sx={{ color: "text.primary", mb: 1 }}>
+            The direction to sort in, either ascending or descending
+          </DialogContentText>
+          <Stack direction="row" spacing={1}>
+            <ColorButton onClick={sortingByAsc}>Ascending Order</ColorButton>
+            <ColorButton onClick={sortingByDesc}>Descending Order</ColorButton>
+          </Stack>
+        </DialogContent>
         <DialogTitle>{"Sort Direction"}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
+          <DialogContentText sx={{ color: "text.primary", mb: 1 }}>
             The direction to sort in, either ascending or descending
           </DialogContentText>
           <Stack direction="row" spacing={1}>
@@ -86,6 +90,7 @@ const CategoryButton = () => {
           </Stack>
         </DialogContent>
         <DialogActions>
+          <Typography>testing</Typography>
           <Button onClick={handleClose}>Disagree</Button>
           <Button onClick={handleClose}>Agree</Button>
         </DialogActions>
