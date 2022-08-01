@@ -12,20 +12,20 @@ import {
 import { useForm, FormProvider } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-import { commerce } from "../../lib/commerce";
 import CustomeTextField from "./CustomeTextField";
-import { useCommerce } from "../../contexts/CommerceContext";
+import commerce from "../../lib/commerce";
 
-const AddressForm = ({ nextStep }) => {
-  const [shippingCountries, setShippingCountries] = useState({});
+const AddressForm = ({ checkoutToken, next }) => {
   const [shippingCountry, setShippingCountry] = useState("");
+  const [shippingCountries, setShippingCountries] = useState({});
   const [shippingSubdivisions, setShippingSubdivisions] = useState({});
   const [shippingSubdivision, setShippingSubdivision] = useState("");
   const [shippingOptions, setShippingOptions] = useState([]);
   const [shippingOption, setShippingOption] = useState("");
-
-  const { checkoutToken } = useCommerce();
   const methods = useForm();
+  const onSubmit = (data) =>
+    next({ ...data, shippingCountry, shippingSubdivision, shippingOption });
+
   const countries = Object.entries(shippingCountries).map(([code, name]) => ({
     id: code,
     label: name,
@@ -41,13 +41,14 @@ const AddressForm = ({ nextStep }) => {
     label: `${option.description} - $${option.price.formatted_with_code}`,
   }));
 
-  const fetchShippingCountries = async (checkoutTokenId) => {
+  const fetchShippingCountries = async (tokenId) => {
     try {
       const { countries } = await commerce.services.localeListShippingCountries(
-        checkoutTokenId
+        tokenId
       );
       setShippingCountries(countries);
       setShippingCountry(Object.keys(countries)[0]);
+      console.log(countries);
     } catch (error) {
       console.log(error.data.error.message);
     }
@@ -101,15 +102,8 @@ const AddressForm = ({ nextStep }) => {
       <FormProvider {...methods}>
         <Box
           component="form"
-          onSubmit={methods.handleSubmit((data) =>
-            nextStep({
-              ...data,
-              shippingCountry,
-              shippingSubdivision,
-              shippingOption,
-            })
-          )}
           sx={{ mt: 2 }}
+          onSubmit={methods.handleSubmit(onSubmit)}
         >
           <Grid container spacing={2}>
             <CustomeTextField name="firstname" label="First Name" />
