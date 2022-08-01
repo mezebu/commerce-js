@@ -3,13 +3,17 @@ import { Container } from "@mui/material";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 
-const Form = ({ activeStep, nextStep, shippingData }) => {
+const Form = ({ activeStep, nextStep, shippingData, backStep }) => {
   return (
     <Container>
       {activeStep === 0 ? (
         <AddressForm nextStep={nextStep} />
       ) : (
-        <PaymentForm shippingData={shippingData} />
+        <PaymentForm
+          shippingData={shippingData}
+          backStep={backStep}
+          nextStep={nextStep}
+        />
       )}
     </Container>
   );
