@@ -14,7 +14,7 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
-import { commerce } from "../../lib/commerce";
+import commerce from "../../lib/commerce";
 import { useCommerce } from "../../contexts/CommerceContext";
 
 import { ActionButtons, CartButton, Divide, BuyButton } from "./styles";
@@ -31,7 +31,7 @@ const ProductDescription = () => {
   const [productDsec, setProductDsec] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const { media, name, price, seo, description, id } = productDsec;
+  const { image, name, price, seo, description, id } = productDsec;
 
   const addToCartHandler = () => {
     handleAddToCart(id, 1);
@@ -74,7 +74,7 @@ const ProductDescription = () => {
                 <CardMedia
                   component="img"
                   sx={{ width: "100%", height: "100%" }}
-                  image={media?.source}
+                  image={image?.url}
                   alt={name}
                 />
               </Grid>
