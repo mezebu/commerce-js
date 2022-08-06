@@ -11,13 +11,10 @@ export function useCommerce() {
 export function CommerceContext({ children }) {
   const [queryData, setQueryData] = useState({});
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [query, setQuery] = useState("");
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
-
-  console.log(categories);
 
   const navigate = useNavigate();
 
@@ -48,15 +45,6 @@ export function CommerceContext({ children }) {
 
   const handleChange = (event) => {
     setQuery(event.target.value);
-  };
-
-  const fetchCategory = async () => {
-    try {
-      const response = await commerce.categories.list();
-      setCategories(response);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const sortByPrice = (sortOrder) => {
@@ -148,8 +136,6 @@ export function CommerceContext({ children }) {
   useEffect(() => {
     fetchCart();
     fetchProducts();
-
-    fetchCategory();
   }, []);
 
   return (
