@@ -3,7 +3,7 @@ import { TextField, Grid } from "@mui/material";
 import { useFormContext, Controller } from "react-hook-form";
 import PropTypes from "prop-types";
 
-const CustomeTextField = ({ name, label, value }) => {
+const CustomeTextField = ({ name, label }) => {
   const { control } = useFormContext();
   return (
     <Grid item xs={12} sm={6}>
