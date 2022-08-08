@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -17,14 +17,17 @@ import FilterListRoundedIcon from "@mui/icons-material/FilterListRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { ColorButton } from "./styles";
 import { useCommerce } from "../../contexts/CommerceContext";
+import commerce from "../../lib/commerce";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const CategoryButton = () => {
+  const [categories, setCategories] = useState([]);
   const [open, setOpen] = useState(false);
   const { sortByName } = useCommerce();
+  console.log(categories);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -32,6 +35,15 @@ const CategoryButton = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const fetchCategory = async () => {
+    try {
+      const response = await commerce.categories.list();
+      setCategories(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const sortingByAsc = () => {
@@ -43,6 +55,10 @@ const CategoryButton = () => {
     sortByName("desc");
     setOpen(false);
   };
+
+  useEffect(() => {
+    fetchCategory();
+  }, []);
 
   return (
     <div>
