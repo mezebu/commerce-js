@@ -2,18 +2,14 @@ import React from "react";
 import { Box, Typography, List, ListItem, Avatar } from "@mui/material";
 import { Divider, ListItemText, ListItemAvatar } from "@mui/material";
 
-import { useCommerce } from "../../contexts/CommerceContext";
-
-const PurchaseSummary = () => {
-  const { checkoutToken } = useCommerce();
-
+const PurchaseSummary = ({ checkoutToken }) => {
   return (
     <Box>
       <Typography variant="h6" align="center" sx={{ mt: 2 }} gutterBottom>
         Order Summary
       </Typography>
-      {checkoutToken.live.line_items.map(
-        ({ id, media, name, quantity, line_total }) => (
+      {checkoutToken.line_items.map(
+        ({ id, image, name, quantity, line_total }) => (
           <List key={id} sx={{ width: "100%", bgcolor: "background.paper" }}>
             <ListItem
               secondaryAction={
@@ -21,7 +17,7 @@ const PurchaseSummary = () => {
               }
             >
               <ListItemAvatar>
-                <Avatar alt={name} src={media?.source} />
+                <Avatar alt={name} src={image?.url} />
               </ListItemAvatar>
               <ListItemText
                 primary={
