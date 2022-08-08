@@ -15,7 +15,7 @@ const SortPanel = () => {
   };
 
   return (
-    <Paper elevation={0} variant="outlined" sx={{ p: 3 }}>
+    <Paper elevation={0} variant="outlined" sx={{ p: 3, mb: 2 }}>
       <Box
         sx={{
           display: "flex",
