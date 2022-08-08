@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  Typography,
-} from "@mui/material";
+import { InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import { Box, Button, FormControl, Grid } from "@mui/material";
 import { useForm, FormProvider } from "react-hook-form";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import CustomeTextField from "./CustomeTextField";
 import commerce from "../../lib/commerce";
@@ -48,7 +41,6 @@ const AddressForm = ({ checkoutToken, next }) => {
       );
       setShippingCountries(countries);
       setShippingCountry(Object.keys(countries)[0]);
-      console.log(countries);
     } catch (error) {
       console.log(error.data.error.message);
     }
@@ -192,3 +184,8 @@ const AddressForm = ({ checkoutToken, next }) => {
 };
 
 export default AddressForm;
+
+AddressForm.propType = {
+  checkoutToken: PropTypes.object,
+  next: PropTypes.func,
+};
