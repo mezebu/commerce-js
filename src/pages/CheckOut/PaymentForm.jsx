@@ -6,6 +6,7 @@ import {
   ElementsConsumer,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import PropTypes from "prop-types";
 
 import PurchaseSummary from "./PurchaseSummary";
 import { useCommerce } from "../../contexts/CommerceContext";
@@ -15,7 +16,6 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const PaymentForm = ({ shippingData, checkoutToken, backStep, nextStep }) => {
   const { handleCaptureCheckout } = useCommerce();
-  console.log(shippingData);
 
   const handleSubmit = async (event, elements, stripe) => {
     event.prventDefault();
@@ -103,3 +103,10 @@ const PaymentForm = ({ shippingData, checkoutToken, backStep, nextStep }) => {
 };
 
 export default PaymentForm;
+
+PaymentForm.propType = {
+  shippingData: PropTypes.object,
+  checkoutToken: PropTypes.object,
+  nextStep: PropTypes.func,
+  backStep: PropTypes.func,
+};
