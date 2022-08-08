@@ -21,6 +21,7 @@ const CheckOut = () => {
     if (cart.line_items) {
       generateCheckoutToken();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const generateCheckoutToken = () => {
@@ -43,7 +44,7 @@ const CheckOut = () => {
     nextStep();
   };
 
-  const Test = () =>
+  const Form = () =>
     activeStep === 0 ? (
       <AddressForm {...{ checkoutToken, next }} />
     ) : (
@@ -68,7 +69,7 @@ const CheckOut = () => {
         {activeStep === steps.length ? (
           <Confirmation />
         ) : (
-          checkoutToken.id && <Test />
+          checkoutToken.id && <Form />
         )}
       </Paper>
     </Container>
