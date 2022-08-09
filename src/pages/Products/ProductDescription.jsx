@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  CardContent,
-  Card,
-  Grid,
-  Stack,
-  CardMedia,
-  Button,
-} from "@mui/material";
-import { Divider, Snackbar, IconButton, Typography } from "@mui/material";
+import { CardContent, Card, Grid, Stack, CardMedia } from "@mui/material";
+import { Divider, Snackbar, Button, Typography } from "@mui/material";
 import { Alert, Box, CircularProgress, Container } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 import commerce from "../../lib/commerce";
@@ -31,7 +22,7 @@ const ProductDescription = () => {
   const [productDsec, setProductDsec] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const { image, name, price, seo, description, id } = productDsec;
+  const { image, name, price, seo, description, id, inventory } = productDsec;
 
   const addToCartHandler = () => {
     handleAddToCart(id, 1);
@@ -45,6 +36,7 @@ const ProductDescription = () => {
         const response = await commerce.products.retrieve(productId);
         setLoading(false);
         setProductDsec(response);
+        console.log(response);
       } catch (error) {
         setLoading(false);
         console.log("Could not fetch Product", error);
@@ -110,21 +102,17 @@ const ProductDescription = () => {
                     </Divide>
                     <Divider>Actions</Divider>
                     <SpaceBtwFlexItems>
-                      <Typography variant="subtitle2">Quantity</Typography>
+                      <Typography variant="subtitle2">
+                        Available Quantity
+                      </Typography>
                       <ActionButtons>
-                        <IconButton size="small">
-                          <RemoveRoundedIcon sx={{ fontSize: 15 }} />
-                        </IconButton>
-                        <Typography variant="subtitle2">1</Typography>
-                        <IconButton size="small">
-                          <AddRoundedIcon sx={{ fontSize: 15 }} />
-                        </IconButton>
+                        <Typography variant="subtitle2">
+                          {inventory.available}
+                        </Typography>
                       </ActionButtons>
                     </SpaceBtwFlexItems>
                     <Box
                       sx={{
-                        display: "flex",
-                        justifyContent: "flex-end",
                         mt: 3,
                       }}
                     >
