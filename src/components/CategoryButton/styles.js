@@ -1,6 +1,6 @@
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import { purple, grey } from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 
 export const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(grey[500]),
