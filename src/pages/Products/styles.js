@@ -21,7 +21,7 @@ export const ActionButtons = styled(Box)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   display: "flex",
   alignItems: "center",
-  justifyContent: "space-between",
+  justifyContent: "center",
   width: 90,
   height: 35,
 }));
