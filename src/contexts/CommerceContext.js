@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import commerce from "../lib/commerce";
+import { commerce } from "../lib/commerce";
 
 const ProductsContext = createContext();
 
