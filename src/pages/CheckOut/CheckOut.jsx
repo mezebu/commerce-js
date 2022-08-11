@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Container, Paper, Step } from "@mui/material";
 import { StepLabel, Stepper, Typography } from "@mui/material";
 
-import commerce from "../../lib/commerce";
+import { commerce } from "../../lib/commerce";
 import { useCommerce } from "../../contexts/CommerceContext";
 
 import Confirmation from "./Confirmation";
