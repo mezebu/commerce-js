@@ -17,7 +17,7 @@ import FilterListRoundedIcon from "@mui/icons-material/FilterListRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { ColorButton } from "./styles";
 import { useCommerce } from "../../contexts/CommerceContext";
-import { commerce } from "../../lib/commerce";
+import commerce from "../../lib/commerce";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
