@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import CustomeTextField from "./CustomeTextField";
-import { commerce } from "../../lib/commerce";
+import commerce from "../../lib/commerce";
 
 const AddressForm = ({ checkoutToken, next }) => {
   const [shippingCountry, setShippingCountry] = useState("");
