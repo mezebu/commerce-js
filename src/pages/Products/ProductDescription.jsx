@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { CardContent, Card, Grid, Stack, CardMedia } from "@mui/material";
-import { Divider, Snackbar, Button, Typography } from "@mui/material";
-import { Alert, Box, CircularProgress, Container } from "@mui/material";
+import { CardContent, Card, CardMedia, LinearProgress } from "@mui/material";
+import { Divider, Snackbar, Button, Stack, Typography } from "@mui/material";
+import { Alert, Box, Grid, CircularProgress, Container } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 import commerce from "../../lib/commerce";
 import { useCommerce } from "../../contexts/CommerceContext";
 
-import { ActionButtons, CartButton, Divide, BuyButton } from "./styles";
+import { CartButton, Divide, BuyButton } from "./styles";
 import {
   SpaceBtwFlexItems,
   CenteredFlexItems,
@@ -36,7 +36,6 @@ const ProductDescription = () => {
         const response = await commerce.products.retrieve(productId);
         setLoading(false);
         setProductDsec(response);
-        console.log(response);
       } catch (error) {
         setLoading(false);
         console.log("Could not fetch Product", error);
@@ -102,14 +101,24 @@ const ProductDescription = () => {
                     </Divide>
                     <Divider>Actions</Divider>
                     <SpaceBtwFlexItems>
-                      <Typography variant="subtitle2">
-                        Available Quantity
-                      </Typography>
-                      <ActionButtons>
-                        <Typography variant="subtitle2">
-                          {inventory.available}
-                        </Typography>
-                      </ActionButtons>
+                      {inventory.available > 0 ? (
+                        <>
+                          <Typography variant="subtitle2">
+                            Available Quantity: {inventory.available}
+                          </Typography>
+
+                          <Box sx={{ width: "10%" }}>
+                            <LinearProgress
+                              variant="determinate"
+                              value={inventory.available}
+                              color={
+                                inventory.available < 20 ? "error" : "primary"
+                              }
+                              sx={{ borderRadius: 5 }}
+                            />
+                          </Box>
+                        </>
+                      ) : null}
                     </SpaceBtwFlexItems>
                     <Box
                       sx={{
