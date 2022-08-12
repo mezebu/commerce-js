@@ -3,6 +3,7 @@ import { Box, Typography, List, ListItem, Avatar } from "@mui/material";
 import { Divider, ListItemText, ListItemAvatar } from "@mui/material";
 
 const PurchaseSummary = ({ checkoutToken }) => {
+  console.log(checkoutToken);
   return (
     <Box>
       <Typography variant="h6" align="center" sx={{ mt: 2 }} gutterBottom>
