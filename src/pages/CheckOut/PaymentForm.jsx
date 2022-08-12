@@ -16,6 +16,7 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const PaymentForm = ({ shippingData, checkoutToken, backStep, nextStep }) => {
   const { handleCaptureCheckout } = useCommerce();
+  console.log(shippingData);
 
   const handleSubmit = async (event, elements, stripe) => {
     event.prventDefault();
@@ -28,7 +29,7 @@ const PaymentForm = ({ shippingData, checkoutToken, backStep, nextStep }) => {
     });
 
     if (error) {
-      console.log(error.message);
+      console.log(error);
     } else {
       const orderData = {
         line_items: checkoutToken.line_items,
@@ -49,7 +50,7 @@ const PaymentForm = ({ shippingData, checkoutToken, backStep, nextStep }) => {
           shipping_method: shippingData.shippingOption,
         },
         payment: {
-          gateway: "stripe",
+          gateway: "gway_9l6LJmxJR4mbo1",
           stripe: {
             payment_method_id: paymentMethod.id,
           },
