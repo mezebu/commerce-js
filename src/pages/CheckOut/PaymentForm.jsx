@@ -12,9 +12,7 @@ import PurchaseSummary from "./PurchaseSummary";
 import { useCommerce } from "../../contexts/CommerceContext";
 import { SpaceBtwFlexItems } from "../../themes/universalStyles";
 
-const stripePromise = loadStripe(
-  "pk_test_51J7d2uJ4t7xR42jOEy3x2WOQpOiH0Uo3YNaLyCwx57P4Q7P9FKetTAAAIvmxpNwY6NxjufR7VIa2O6CMg7pMGsst00fPpZksE8"
-);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const PaymentForm = ({ shippingData, checkoutToken, backStep, nextStep }) => {
   const { handleCaptureCheckout } = useCommerce();
