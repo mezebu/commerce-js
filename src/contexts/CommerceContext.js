@@ -103,8 +103,8 @@ export function CommerceContext({ children }) {
 
   const handleEmptyCart = async () => {
     try {
-      const response = await commerce.cart.empty();
-      setCart(response.cart);
+      const { cart } = await commerce.cart.empty();
+      setCart(cart);
     } catch (error) {
       console.log("There was an error emptying the cart", error);
     }
