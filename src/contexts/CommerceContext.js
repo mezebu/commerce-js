@@ -142,6 +142,7 @@ export function CommerceContext({ children }) {
     <ProductsContext.Provider
       value={{
         products,
+        setProducts,
         sortByName,
         sortByPrice,
         handleChange,
