@@ -2,7 +2,7 @@ import React from "react";
 import { useCommerce } from "../../contexts/CommerceContext";
 
 const Confirmation = () => {
-  const { errorMessage, order } = useCommerce();
+  const { order } = useCommerce();
   console.log(order);
 
   return (
