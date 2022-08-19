@@ -26,7 +26,7 @@ const CartItem = ({ lineItems, totalItems, subTotal }) => {
           Cart
         </Typography>
         <Typography sx={{ fontWeight: 500 }} variant="subtitle2">
-          Total Item in cart ({totalItems})
+          Total Item(s) in cart : {totalItems}
         </Typography>
       </Box>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
