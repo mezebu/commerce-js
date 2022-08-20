@@ -19,3 +19,8 @@ export const CenteredFlexDirection = styled(Box)({
   justifyContent: "center",
   flexDirection: "column",
 });
+
+export const JustifyCenter = styled(Box)({
+  display: "flex",
+  justifyContent: "center",
+});
