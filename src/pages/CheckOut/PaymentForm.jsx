@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, Grid, InputAdornment } from "@mui/material";
+import { TextField, FormControl, InputLabel } from "@mui/material";
+import { OutlinedInput, IconButton } from "@mui/material";
+import CreditCardRoundedIcon from "@mui/icons-material/CreditCardRounded";
+import Visibility from "@mui/icons-material/Visibility";
 import PropTypes from "prop-types";
 
 import PurchaseSummary from "./PurchaseSummary";
 import { useCommerce } from "../../contexts/CommerceContext";
-import { SpaceBtwFlexItems } from "../../themes/universalStyles";
+import NumberFormat from "react-number-format";
 
 const initialValues = {
   cardNumber: "",
@@ -19,8 +23,15 @@ const PaymentForm = ({ shippingData, checkoutToken, backStep, nextStep }) => {
   const { handleCaptureCheckout } = useCommerce();
   const [values, setValues] = useState(initialValues);
 
-  const handleChange = (prop) => (e) => {
-    setValues({ ...values, [prop]: e.target.value });
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
   };
 
   const handleSubmit = () => {
@@ -63,38 +74,115 @@ const PaymentForm = ({ shippingData, checkoutToken, backStep, nextStep }) => {
       <Typography sx={{ mt: 2 }} variant="h6" align="center" gutterBottom>
         Payment Methods
       </Typography>
-      <form onSubmit={handleSubmit}>
-        <input
-          value={values.cardNumber}
-          onChange={handleChange("cardNumber")}
-        />
-        <input
-          value={values.expiryMonth}
-          onChange={handleChange("expiryMonth")}
-        />
-        <input
-          value={values.expiryYear}
-          onChange={handleChange("expiryYear")}
-        />
-        <input value={values.ccv} onChange={handleChange("ccv")} />
-        <input
-          value={values.billingPostalZipcode}
-          onChange={handleChange("billingPostalZipcode")}
-        />
-        <SpaceBtwFlexItems sx={{ mt: 4 }}>
-          <Button variant="contained" onClick={backStep} disableElevation>
-            Back
-          </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            color="success"
-            disableElevation
-          >
-            Pay {checkoutToken.live.subtotal.formatted_with_symbol}
-          </Button>
-        </SpaceBtwFlexItems>
-      </form>
+      <Box component="form" onSubmit={handleSubmit}>
+        <Grid container spacing={3} sx={{ px: 5, py: 3 }}>
+          <Grid item xs={12} sm={12} md={12} lg={12}>
+            <NumberFormat
+              customInput={TextField}
+              fullWidth
+              label="Card Number"
+              name="cardNumber"
+              variant="outlined"
+              format="#### #### #### ####"
+              placeholder="Use 4242 4242 4242 4242"
+              value={values.cardNumber}
+              onChange={handleChange}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <CreditCardRoundedIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid item xs md={3} sm={4}>
+            <NumberFormat
+              customInput={TextField}
+              fullWidth
+              label="Expiry Month"
+              name="expiryMonth"
+              variant="outlined"
+              format="##"
+              value={values.expiryMonth}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs md={3} sm={4}>
+            <NumberFormat
+              customInput={TextField}
+              fullWidth
+              label="Expiry Year"
+              name="expiryYear"
+              variant="outlined"
+              format="##"
+              value={values.expiryYear}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} md={6} sm={4}>
+            <FormControl sx={{ width: "100%" }}>
+              <InputLabel htmlFor="outlined-adornment-password">CVC</InputLabel>
+              <NumberFormat
+                customInput={OutlinedInput}
+                type={values.showPassword ? "text" : "password"}
+                label="CVC"
+                name="ccv"
+                variant="outlined"
+                format="###"
+                value={values.ccv}
+                onChange={handleChange}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                    >
+                      <Visibility />
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={6} lg={6}>
+            <NumberFormat
+              customInput={TextField}
+              fullWidth
+              label="Zip/Postal Code"
+              name="billingPostalZipcode"
+              variant="outlined"
+              format="######"
+              value={values.billingPostalZipcode}
+              onChange={handleChange}
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={2} sx={{ px: 5, py: 3 }}>
+          <Grid item lg={6} md={6} sm={6} xs={12}>
+            <Button
+              fullWidth
+              variant="contained"
+              onClick={backStep}
+              disableElevation
+            >
+              Back
+            </Button>
+          </Grid>
+          <Grid item lg={6} md={6} sm={6} xs={12}>
+            <Button
+              fullWidth
+              type="submit"
+              variant="contained"
+              color="success"
+              disableElevation
+            >
+              Pay {checkoutToken.live.subtotal.formatted_with_symbol}
+            </Button>
+          </Grid>
+        </Grid>
+      </Box>
     </Box>
   );
 };
