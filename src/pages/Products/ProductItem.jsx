@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CardMedia, Button, Typography, Stack } from "@mui/material";
+import { CardMedia, Typography, IconButton } from "@mui/material";
 import { CardActions, CardContent } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
@@ -49,22 +49,12 @@ const ProductItem = ({ product, onAddToCart }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<AddShoppingCartRoundedIcon />}
-            variant="outlined"
-            onClick={handleAddToCart}
-          >
-            Add
-          </Button>
-          <Button
-            startIcon={<RemoveRedEyeRoundedIcon />}
-            variant="outlined"
-            onClick={() => handleDescription(id)}
-          >
-            Description
-          </Button>
-        </Stack>
+        <IconButton color="primary" onClick={handleAddToCart}>
+          <AddShoppingCartRoundedIcon />
+        </IconButton>
+        <IconButton color="primary" onClick={() => handleDescription(id)}>
+          <RemoveRedEyeRoundedIcon />
+        </IconButton>
       </CardActions>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
