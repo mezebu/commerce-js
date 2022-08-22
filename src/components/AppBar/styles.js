@@ -1,4 +1,4 @@
-import { styled, alpha } from "@mui/material/styles";
+import { styled, alpha, createTheme } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 
 export const Search = styled("form")(({ theme }) => ({
@@ -43,3 +43,21 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
+export const darkMode = createTheme({
+  palette: {
+    mode: "dark",
+    background: {
+      paper: "rgb(27, 38, 53)",
+    },
+  },
+});
+
+export const lightMode = createTheme({
+  palette: {
+    mode: "light",
+    background: {
+      paper: "rgb(27, 38, 53)",
+    },
+  },
+});
