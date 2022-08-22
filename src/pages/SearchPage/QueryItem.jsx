@@ -35,6 +35,7 @@ const QueryItem = ({ product, onAddToCart }) => {
   };
 
   const { image, name, price } = product;
+
   return (
     <ProductWrapper elevation={0} variant="outlined">
       <CardMedia component="img" height="190" image={image?.url} />
