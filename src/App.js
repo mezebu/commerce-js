@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, CssBaseline } from "@mui/material";
+import { Box, Container, CssBaseline, Toolbar } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { Routes, Route } from "react-router-dom";
 
@@ -7,11 +7,11 @@ import { Routes, Route } from "react-router-dom";
 import { Hero, ProductsList, ProductDescription, Cart, NoMatch, CheckOut, SearchPage,  } from "./pages";
 
 import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
 
 import { darkMode, lightMode } from "./themes/universalStyles";
 import { CommerceContext } from "./contexts/CommerceContext";
 import { useThemeContext } from "./contexts/ThemeContext";
+import AppBar from "./components/AppBar/AppBar";
 
 const App = () => {
   const darkTheme = useThemeContext();
@@ -21,7 +21,8 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CommerceContext>
         <CssBaseline />
-        <Header />
+        <AppBar />
+        <Toolbar />
         <Container maxWidth="xl">
           <Box component="main" sx={{ p: 3 }}>
             <Routes>
