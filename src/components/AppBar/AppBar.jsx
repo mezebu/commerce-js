@@ -4,14 +4,12 @@ import { Typography, Avatar, IconButton } from "@mui/material";
 import { Container, Tooltip } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
-import { Link } from "react-router-dom";
 import StoreMallDirectoryIcon from "@mui/icons-material/StoreMallDirectory";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
+import StoreRoundedIcon from "@mui/icons-material/StoreRounded";
 import ModeNightRoundedIcon from "@mui/icons-material/ModeNightRounded";
 import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
-import PropTypes from "prop-types";
 
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 // prettier-ignore
@@ -19,7 +17,7 @@ import { useThemeContext, useThemeUpdateContext,} from "../../contexts/ThemeCont
 import { lightMode, darkMode } from "./styles";
 import { useCommerce } from "../../contexts/CommerceContext";
 
-const AppBar = ({ handleDrawerToggle }) => {
+const AppBar = () => {
   const { searchProduct, query, handleChange, cart } = useCommerce();
   const { pathname } = useLocation();
   const darkTheme = useThemeContext();
@@ -47,16 +45,6 @@ const AppBar = ({ handleDrawerToggle }) => {
         >
           <Container maxWidth="xl">
             <Toolbar>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerToggle}
-                sx={{ mr: 2, display: { sm: "none" } }}
-              >
-                <MenuIcon />
-              </IconButton>
               <Box sx={{ flexGrow: 1 }}>
                 {pathname !== "/search" && (
                   <Typography
@@ -64,7 +52,11 @@ const AppBar = ({ handleDrawerToggle }) => {
                     component="div"
                     sx={{ ml: 1, display: { xs: "none", sm: "block" } }}
                   >
-                    <Link to="/">Logo</Link>
+                    <StoreRoundedIcon
+                      sx={{ cursor: "pointer", fontSize: 40 }}
+                      color="secondary"
+                      onClick={() => navigate("/")}
+                    />
                   </Typography>
                 )}
               </Box>
@@ -122,7 +114,3 @@ const AppBar = ({ handleDrawerToggle }) => {
 };
 
 export default AppBar;
-
-AppBar.propTypes = {
-  handleDrawerToggle: PropTypes.func,
-};
