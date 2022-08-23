@@ -6,12 +6,6 @@ import EmailIcon from "@mui/icons-material/Email";
 
 // prettier-ignore
 import { Wrapper, FooterItems, FooterText, FooterContents, FooterLinks,} from "./styles";
- 
- 
- 
- 
- 
-
 
 const Footer = () => {
   const theme = useTheme();
@@ -22,7 +16,7 @@ const Footer = () => {
         {isMobile ? (
           <FooterItems>
             <FooterContents>
-              <FooterText>Logo</FooterText>
+              <FooterText>Henry's Store</FooterText>
             </FooterContents>
             <FooterContents>
               <EmailIcon fontSize="small" sx={{ mr: 1, ml: 2 }} />
