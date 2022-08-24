@@ -2,7 +2,6 @@ import { Box, Link, styled, Typography } from "@mui/material";
 import { blue, grey } from "@mui/material/colors";
 
 export const Wrapper = styled(Box)(() => ({
-  background: "#F6F9FC",
   height: 45,
   display: "flex",
   alignItems: "center",
@@ -10,8 +9,8 @@ export const Wrapper = styled(Box)(() => ({
   left: 0,
   bottom: 0,
   right: 0,
-  borderTop: "1px solid",
-  borderTopColor: grey[200],
+  borderTop: "1px thin",
+  borderTopColor: grey[50],
 }));
 
 export const FooterItems = styled(Box)({
@@ -32,7 +31,6 @@ export const FooterText = styled(Typography)({
 export const FooterLinks = styled(Link)({
   fontSize: 14,
   fontWeight: 500,
-  color: "black",
   "&:hover": {
     color: blue[600],
   },
