@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, useMediaQuery } from "@mui/material";
+import { Container, Paper, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import EmailIcon from "@mui/icons-material/Email";
@@ -11,7 +11,7 @@ const Footer = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   return (
-    <Wrapper>
+    <Wrapper component={Paper}>
       <Container maxWidth="xl">
         {isMobile ? (
           <FooterItems>
