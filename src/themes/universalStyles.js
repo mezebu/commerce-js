@@ -42,6 +42,10 @@ export const darkMode = createTheme({
   },
   palette: {
     mode: "dark",
+    background: {
+      default: "#071121",
+      paper: "#0f172a",
+    },
   },
 });
 
