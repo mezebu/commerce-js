@@ -1,6 +1,7 @@
-import React, { Fragment } from "react";
-import { Box, Typography, Avatar, List, ListItemAvatar } from "@mui/material";
-import { Divider, ListItem, ListItemText } from "@mui/material";
+import React from "react";
+import { Box, Typography, Avatar } from "@mui/material";
+import { TableContainer, Table, TableCell } from "@mui/material";
+import { Divider, TableRow, TableHead, TableBody } from "@mui/material";
 import PropTypes from "prop-types";
 
 const PurchaseSummary = ({ checkoutToken }) => {
@@ -9,53 +10,56 @@ const PurchaseSummary = ({ checkoutToken }) => {
       <Typography variant="h6" align="center" sx={{ mt: 2 }} gutterBottom>
         Order Summary
       </Typography>
-      <Box sx={{ m: 5 }}>
-        {checkoutToken.line_items.map(
-          ({ id, image, name, quantity, line_total }) => (
-            <Fragment key={id}>
-              <List
-                sx={{
-                  width: "100%",
-                  bgcolor: "background.paper",
-                }}
-              >
-                <ListItem
-                  secondaryAction={
-                    <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                      {line_total?.formatted_with_symbol}
-                    </Typography>
-                  }
+      <TableContainer component={Box}>
+        <Table sx={{ minWidth: 250 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Image</TableCell>
+              <TableCell align="left">Name</TableCell>
+              <TableCell align="left">Quantity</TableCell>
+              <TableCell align="left">Price</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {checkoutToken.line_items.map(
+              ({ id, image, name, quantity, line_total }) => (
+                <TableRow
+                  key={id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <ListItemAvatar>
-                    <Avatar alt={name} src={image?.url} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={name}
-                    secondary={
-                      <Fragment>
-                        <Typography
-                          sx={{ display: "inline" }}
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                        >
-                          Qunatity: {quantity}
-                        </Typography>
-                      </Fragment>
-                    }
-                  />
-                </ListItem>
-              </List>
-              <Divider />
-            </Fragment>
-          )
-        )}
-      </Box>
-      <Box>
-        <Typography variant="subtitle1" sx={{ fontWeight: 600 }} gutterBottom>
+                  <TableCell align="left">
+                    <Avatar
+                      alt={name}
+                      src={image?.url}
+                      sx={{ height: 50, width: 50 }}
+                    />
+                  </TableCell>
+                  <TableCell align="left">{name}</TableCell>
+                  <TableCell align="left">{quantity}</TableCell>
+                  <TableCell align="left">
+                    {line_total?.formatted_with_symbol}
+                  </TableCell>
+                </TableRow>
+              )
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Box sx={{ py: 1 }}>
+        <Typography
+          align="right"
+          variant="subtitle1"
+          sx={{ fontWeight: 600 }}
+          gutterBottom
+        >
           Total
         </Typography>
-        <Typography variant="subtitle1" sx={{ fontWeight: 700 }} gutterBottom>
+        <Typography
+          align="right"
+          variant="subtitle1"
+          sx={{ fontWeight: 700 }}
+          gutterBottom
+        >
           {checkoutToken.live.subtotal.formatted_with_symbol}
         </Typography>
       </Box>
