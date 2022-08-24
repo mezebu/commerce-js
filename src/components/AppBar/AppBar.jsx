@@ -38,9 +38,8 @@ const AppBar = () => {
           elevation={0}
           sx={{
             background: "rgba( 255, 255, 255, 0 )",
-            backdropFilter: "blur( 20px )",
-            WebkitBackdropFilter: "blur( 20px )",
-            border: "1px solid rgba( 255, 255, 255, 0.18 )",
+            backdropFilter: "blur( 21px )",
+            WebkitBackdropFilter: "blur( 21px )",
           }}
         >
           <Container maxWidth="xl">
