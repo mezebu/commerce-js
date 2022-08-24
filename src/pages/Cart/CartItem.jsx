@@ -1,6 +1,6 @@
 import React from "react";
-import { TableBody, TableCell, TableHead, Avatar, Alert } from "@mui/material";
-import { Box, IconButton, Table, Snackbar, Typography } from "@mui/material";
+import { TableBody, TableCell, TableHead, Avatar } from "@mui/material";
+import { Box, IconButton, Table, Typography } from "@mui/material";
 import { TableContainer, Button, Paper, TableRow } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -15,12 +15,12 @@ import { ActionButtons, StyledTableCell } from "./styles";
 import { useCommerce } from "../../contexts/CommerceContext";
 
 const CartItem = ({ lineItems, totalItems, subTotal }) => {
-  // prettier-ignore
-  const { handleRemoveFromCart, handleCartUpdate, handleEmptyCart, open, handleClose, } = useCommerce();
+  const { handleRemoveFromCart, handleCartUpdate, handleEmptyCart } =
+    useCommerce();
   const navigate = useNavigate();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} elevation={0} variant="outlined">
       <Box sx={{ p: 2 }}>
         <Typography variant="h5" fontWeight={600}>
           Cart
@@ -152,11 +152,6 @@ const CartItem = ({ lineItems, totalItems, subTotal }) => {
           </TableRow>
         </TableBody>
       </Table>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          Quantity has been updated
-        </Alert>
-      </Snackbar>
     </TableContainer>
   );
 };
