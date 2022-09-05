@@ -7,6 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import FilterListRoundedIcon from "@mui/icons-material/FilterListRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+
 import { ColorButton } from "./styles";
 import { useCommerce } from "../../contexts/CommerceContext";
 import commerce from "../../lib/commerce";
