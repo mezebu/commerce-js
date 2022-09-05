@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, Container, Grid } from "@mui/material";
 
-import ProductItem from "./ProductItem";
 import { useCommerce } from "../../contexts/CommerceContext";
 import { useLocation } from "react-router-dom";
 import FilterButton from "../../components/FilterButton/FilterButton";
+import ProductItem from "./ProductItem";
 
 const ProductsList = () => {
   const { products, handleAddToCart } = useCommerce();
