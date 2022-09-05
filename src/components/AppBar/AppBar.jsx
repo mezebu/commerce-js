@@ -22,8 +22,6 @@ const AppBar = () => {
   const { pathname } = useLocation();
   const darkTheme = useThemeContext();
   const theme = darkTheme ? darkMode : lightMode;
-  /* const match = useTheme();
-  const isMobile = useMediaQuery(match.breakpoints.down("md")); */
   const themeHandler = useThemeUpdateContext();
   const navigate = useNavigate();
   const icon = darkTheme ? <LightModeRoundedIcon /> : <ModeNightRoundedIcon />;
