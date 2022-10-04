@@ -1,24 +1,22 @@
 import React from "react";
-import { Box, Badge, Toolbar } from "@mui/material";
 import { Typography, Avatar, IconButton } from "@mui/material";
-import { Container, Tooltip } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Box, Badge, Toolbar } from "@mui/material";
+import { Container, Tooltip } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import StoreMallDirectoryIcon from "@mui/icons-material/StoreMallDirectory";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
 import StoreRoundedIcon from "@mui/icons-material/StoreRounded";
 import ModeNightRoundedIcon from "@mui/icons-material/ModeNightRounded";
-import SearchIcon from "@mui/icons-material/Search";
 
-import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 // prettier-ignore
 import { useThemeContext, useThemeUpdateContext,} from "../../contexts/ThemeContext";
 import { lightMode, darkMode, StyledAppBar } from "./styles";
 import { useCommerce } from "../../contexts/CommerceContext";
 
 const AppBar = () => {
-  const { searchProduct, query, handleChange, cart } = useCommerce();
+  const { cart } = useCommerce();
   const { pathname } = useLocation();
   const darkTheme = useThemeContext();
   const theme = darkTheme ? darkMode : lightMode;
@@ -48,30 +46,16 @@ const AppBar = () => {
                   </Typography>
                 )}
               </Box>
-
-              <Search onSubmit={searchProduct}>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search Product"
-                  inputProps={{ "aria-label": "search" }}
-                  value={query}
-                  onChange={handleChange}
-                />
-              </Search>
-              <Box sx={{ p: 2 }}>
+              <Box>
                 {pathname !== "/cart" && (
-                  <Badge badgeContent={cart.total_items} color="primary">
-                    <Avatar>
-                      <IconButton
-                        aria-label="shopping-cart"
-                        onClick={() => navigate("/cart")}
-                      >
-                        <LocalMallOutlinedIcon />
-                      </IconButton>
-                    </Avatar>
-                  </Badge>
+                  <IconButton
+                    aria-label="shopping-cart"
+                    onClick={() => navigate("/cart")}
+                  >
+                    <Badge badgeContent={cart.total_items} color="success">
+                      <LocalMallOutlinedIcon sx={{ fontSize: 30 }} />
+                    </Badge>
+                  </IconButton>
                 )}
               </Box>
               <Box sx={{ mr: 2 }}>

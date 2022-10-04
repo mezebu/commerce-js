@@ -2,18 +2,19 @@ import React from "react";
 import { Box, Container, Grid } from "@mui/material";
 
 import { useCommerce } from "../../contexts/CommerceContext";
-import { useLocation } from "react-router-dom";
-import FilterButton from "../../components/FilterButton/FilterButton";
+
 import ProductItem from "./ProductItem";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 const ProductsList = () => {
   const { products, handleAddToCart } = useCommerce();
-  const { pathname } = useLocation();
 
   return (
     <Container>
       <Box sx={{ mb: 5 }}>
-        {pathname === "/products" && <FilterButton />}
+        <Box sx={{ py: 3 }}>
+          <SearchBar />
+        </Box>
 
         <Grid container spacing={1}>
           {products.map((product) => (
