@@ -17,7 +17,7 @@ const ProductsList = () => {
 
         <Grid container spacing={1}>
           {products.map((product) => (
-            <Grid key={product.id} item lg={3} md={4} sm={6} xs={12}>
+            <Grid key={product.id} item lg={4} md={6} sm={12} xs={12}>
               <ProductItem product={product} onAddToCart={handleAddToCart} />
             </Grid>
           ))}
