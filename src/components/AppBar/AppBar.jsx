@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar as MUIAppBar, Box, Badge, Toolbar } from "@mui/material";
+import { Box, Badge, Toolbar } from "@mui/material";
 import { Typography, Avatar, IconButton } from "@mui/material";
 import { Container, Tooltip } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -14,7 +14,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 // prettier-ignore
 import { useThemeContext, useThemeUpdateContext,} from "../../contexts/ThemeContext";
-import { lightMode, darkMode } from "./styles";
+import { lightMode, darkMode, StyledAppBar } from "./styles";
 import { useCommerce } from "../../contexts/CommerceContext";
 
 const AppBar = () => {
@@ -30,16 +30,7 @@ const AppBar = () => {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ flexGrow: 1 }}>
-        <MUIAppBar
-          color="inherit"
-          component="nav"
-          elevation={0}
-          sx={{
-            background: "rgba( 255, 255, 255, 0 )",
-            backdropFilter: "blur( 21px )",
-            WebkitBackdropFilter: "blur( 21px )",
-          }}
-        >
+        <StyledAppBar color="inherit" component="nav" elevation={0}>
           <Container maxWidth="xl">
             <Toolbar>
               <Box sx={{ flexGrow: 1 }}>
@@ -104,7 +95,7 @@ const AppBar = () => {
               </Tooltip>
             </Toolbar>
           </Container>
-        </MUIAppBar>
+        </StyledAppBar>
       </Box>
     </ThemeProvider>
   );
