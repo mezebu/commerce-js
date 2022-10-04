@@ -1,5 +1,16 @@
 import { styled, alpha, createTheme } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
+import { InputBase, AppBar } from "@mui/material";
+
+export const StyledAppBar = styled(AppBar)(({ theme }) => ({
+  background: "rgba( 255, 255, 255, 0 )",
+  backdropFilter: "blur( 21px )",
+  WebkitBackdropFilter: "blur( 21px )",
+  borderBottom: `1px solid ${
+    theme.palette.mode === "light"
+      ? theme.palette.grey[300]
+      : theme.palette.grey[800]
+  }`,
+}));
 
 export const Search = styled("form")(({ theme }) => ({
   position: "relative",
