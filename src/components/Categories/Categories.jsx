@@ -6,6 +6,7 @@ import commerce from "../../lib/commerce";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
+
   const { setProducts, fetchProducts, setLoading } = useCommerce();
 
   useEffect(() => {
