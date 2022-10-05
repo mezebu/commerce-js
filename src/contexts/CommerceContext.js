@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import commerce from "../lib/commerce";
 
 const ProductsContext = createContext();
@@ -9,20 +8,20 @@ export function useCommerce() {
 }
 
 export function CommerceContext({ children }) {
-  const [queryData, setQueryData] = useState({});
   const [products, setProducts] = useState([]);
   const [query, setQuery] = useState("");
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const navigate = useNavigate();
-
   const fetchProducts = async () => {
+    setLoading(true);
     try {
       const { data } = await commerce.products.list();
 
       setProducts(data);
+      setLoading(false);
     } catch (error) {
       console.log("There was an error fetching the products", error);
     }
@@ -30,12 +29,13 @@ export function CommerceContext({ children }) {
 
   const searchProduct = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     commerce.products
       .list({ query: query })
       .then(({ data }) => {
-        setQueryData(data);
-        navigate("/search");
+        setProducts(data);
+        setLoading(false);
         setQuery("");
       })
       .catch((error) =>
@@ -141,6 +141,7 @@ export function CommerceContext({ children }) {
   return (
     <ProductsContext.Provider
       value={{
+        fetchProducts,
         products,
         setProducts,
         sortByName,
@@ -148,7 +149,6 @@ export function CommerceContext({ children }) {
         handleChange,
         searchProduct,
         query,
-        queryData,
         handleAddToCart,
         cart,
         handleCartUpdate,
@@ -157,6 +157,8 @@ export function CommerceContext({ children }) {
         handleCaptureCheckout,
         order,
         errorMessage,
+        loading,
+        setLoading,
       }}
     >
       {children}
