@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography, Avatar, IconButton } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Box, Badge, Toolbar } from "@mui/material";
@@ -14,8 +14,11 @@ import ModeNightRoundedIcon from "@mui/icons-material/ModeNightRounded";
 import { useThemeContext, useThemeUpdateContext,} from "../../contexts/ThemeContext";
 import { lightMode, darkMode, StyledAppBar } from "./styles";
 import { useCommerce } from "../../contexts/CommerceContext";
+import CartDrawer from "../Drawer/CartDrawer";
 
 const AppBar = () => {
+  const [open, setOpen] = useState(false);
+
   const { cart } = useCommerce();
   const { pathname } = useLocation();
   const darkTheme = useThemeContext();
@@ -25,62 +28,65 @@ const AppBar = () => {
   const icon = darkTheme ? <LightModeRoundedIcon /> : <ModeNightRoundedIcon />;
   const title = darkTheme ? "Switch to light theme" : "Switch to dark theme";
 
+  const handleDrawerToggle = () => {
+    setOpen(!open);
+  };
+
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ flexGrow: 1 }}>
-        <StyledAppBar color="inherit" component="nav" elevation={0}>
-          <Container maxWidth="xl">
-            <Toolbar>
-              <Box sx={{ flexGrow: 1 }}>
-                {pathname !== "/search" && (
-                  <Typography
-                    variant="h6"
-                    component="div"
-                    sx={{ ml: 1, display: { xs: "none", sm: "block" } }}
-                  >
-                    <StoreRoundedIcon
-                      sx={{ cursor: "pointer", fontSize: 40 }}
-                      color="secondary"
-                      onClick={() => navigate("/")}
-                    />
-                  </Typography>
-                )}
-              </Box>
-              <Box>
-                {pathname !== "/cart" && (
-                  <IconButton
-                    aria-label="shopping-cart"
-                    onClick={() => navigate("/cart")}
-                  >
-                    <Badge badgeContent={cart.total_items} color="success">
-                      <LocalMallOutlinedIcon sx={{ fontSize: 30 }} />
-                    </Badge>
-                  </IconButton>
-                )}
-              </Box>
-              <Box sx={{ mr: 2 }}>
-                {pathname === "/search" && (
-                  <Avatar>
-                    <Tooltip title="Back to products page">
-                      <IconButton
-                        aria-label="shopping-cart"
-                        onClick={() => navigate("/products")}
-                      >
-                        <StoreMallDirectoryIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </Avatar>
-                )}
-              </Box>
-              <Tooltip title={title}>
+      <StyledAppBar color="inherit" component="nav" elevation={0}>
+        <Container maxWidth="xl">
+          <Toolbar>
+            <Box sx={{ flexGrow: 1 }}>
+              {pathname !== "/search" && (
+                <Typography
+                  variant="h6"
+                  component="div"
+                  sx={{ ml: 1, display: { xs: "none", sm: "block" } }}
+                >
+                  <StoreRoundedIcon
+                    sx={{ cursor: "pointer", fontSize: 40 }}
+                    color="secondary"
+                    onClick={() => navigate("/")}
+                  />
+                </Typography>
+              )}
+            </Box>
+            <Box>
+              {pathname !== "/cart" && (
+                <IconButton
+                  aria-label="shopping-cart"
+                  onClick={handleDrawerToggle}
+                >
+                  <Badge badgeContent={cart.total_items} color="success">
+                    <LocalMallOutlinedIcon sx={{ fontSize: 30 }} />
+                  </Badge>
+                </IconButton>
+              )}
+            </Box>
+            <Box sx={{ mr: 2 }}>
+              {pathname === "/search" && (
                 <Avatar>
-                  <IconButton onClick={themeHandler}>{icon}</IconButton>
+                  <Tooltip title="Back to products page">
+                    <IconButton
+                      aria-label="shopping-cart"
+                      onClick={() => navigate("/products")}
+                    >
+                      <StoreMallDirectoryIcon />
+                    </IconButton>
+                  </Tooltip>
                 </Avatar>
-              </Tooltip>
-            </Toolbar>
-          </Container>
-        </StyledAppBar>
-      </Box>
+              )}
+            </Box>
+            <Tooltip title={title}>
+              <Avatar>
+                <IconButton onClick={themeHandler}>{icon}</IconButton>
+              </Avatar>
+            </Tooltip>
+          </Toolbar>
+        </Container>
+      </StyledAppBar>
+      <CartDrawer handleDrawerToggle={handleDrawerToggle} open={open} />
     </ThemeProvider>
   );
 };
