@@ -6,6 +6,7 @@ import { useCommerce } from "../../contexts/CommerceContext";
 import ProductItem from "./ProductItem";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Categories from "../../components/Categories/Categories";
+import FilterButton from "../../components/FilterButton/FilterButton";
 
 const ProductsList = () => {
   const { products, handleAddToCart, loading } = useCommerce();
@@ -18,6 +19,9 @@ const ProductsList = () => {
         </Box>
         <Box sx={{ py: 3 }}>
           <SearchBar />
+        </Box>
+        <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 1 }}>
+          <FilterButton />
         </Box>
 
         <Grid container spacing={1}>

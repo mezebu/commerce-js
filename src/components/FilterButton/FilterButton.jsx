@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Avatar, Box, Divider, Typography } from "@mui/material";
 import { Dialog, Stack, IconButton } from "@mui/material";
 import DialogContent from "@mui/material/DialogContent";
@@ -10,29 +10,14 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 import { ColorButton } from "./styles";
 import { useCommerce } from "../../contexts/CommerceContext";
-import commerce from "../../lib/commerce";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const FilterButton = () => {
-  const [categories, setCategories] = useState([]);
   const [open, setOpen] = useState(false);
-  const { sortByName, sortByPrice, setProducts } = useCommerce();
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const { data } = await commerce.categories.list();
-        setCategories(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchCategories();
-  }, []);
+  const { sortByName, sortByPrice } = useCommerce();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -52,30 +37,9 @@ const FilterButton = () => {
     setOpen(false);
   };
 
-  const getCategory = async (cat) => {
-    try {
-      const { data } = await commerce.products.list({
-        category_slug: [cat],
-      });
-
-      setProducts(data);
-      setOpen(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          my: 2,
-        }}
-      >
-        <Typography sx={{ mr: 2 }}>Filter Products</Typography>
+      <Box>
         <Avatar>
           <IconButton aria-label="filter products" onClick={handleClickOpen}>
             <FilterListRoundedIcon />
@@ -99,18 +63,6 @@ const FilterButton = () => {
           </Box>
         </Box>
         <Divider />
-        <DialogTitle>Categories</DialogTitle>
-        <DialogContent>
-          <Box sx={{ display: "flex" }}>
-            {categories.map(({ id, name, slug }) => (
-              <Box sx={{ mr: 1 }} key={id}>
-                <ColorButton onClick={() => getCategory(slug)}>
-                  {name}
-                </ColorButton>
-              </Box>
-            ))}
-          </Box>
-        </DialogContent>
 
         <DialogTitle>Sort Direction</DialogTitle>
         <DialogContent>
