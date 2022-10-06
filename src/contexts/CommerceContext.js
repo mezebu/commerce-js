@@ -48,18 +48,24 @@ export function CommerceContext({ children }) {
   };
 
   const sortByPrice = (sortOrder) => {
+    setLoading(true);
     commerce.products
       .list({ sortBy: "price", sortDirection: sortOrder })
       .then(({ data }) => {
         setProducts(data);
+        setLoading(false);
       })
       .catch((error) => console.log("Error filtering sort order", error));
   };
 
   const sortByName = (sortOrder) => {
+    setLoading(true);
     commerce.products
       .list({ sortBy: "name", sortDirection: sortOrder })
-      .then(({ data }) => setProducts(data))
+      .then(({ data }) => {
+        setProducts(data);
+        setLoading(false);
+      })
       .catch((error) => console.log(error));
   };
 
