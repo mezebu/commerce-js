@@ -6,7 +6,6 @@ import { Container, Tooltip } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
-import StoreRoundedIcon from "@mui/icons-material/StoreRounded";
 import ModeNightRoundedIcon from "@mui/icons-material/ModeNightRounded";
 
 // prettier-ignore
@@ -14,6 +13,7 @@ import { useThemeContext, useThemeUpdateContext,} from "../../contexts/ThemeCont
 import { lightMode, darkMode, StyledAppBar } from "./styles";
 import { useCommerce } from "../../contexts/CommerceContext";
 import CartDrawer from "../Drawer/CartDrawer";
+import store from "../../assets/shopping-cart.png";
 
 const AppBar = () => {
   const [open, setOpen] = useState(false);
@@ -40,15 +40,18 @@ const AppBar = () => {
               {pathname !== "/" && (
                 <Typography
                   variant="h6"
-                  component="div"
-                  sx={{ ml: 1, display: { xs: "none", sm: "block" } }}
-                >
-                  <StoreRoundedIcon
-                    sx={{ cursor: "pointer", fontSize: 40 }}
-                    color="secondary"
-                    onClick={() => navigate("/")}
-                  />
-                </Typography>
+                  component="img"
+                  src={store}
+                  alt="store-logo"
+                  sx={{
+                    ml: 1,
+                    cursor: "pointer",
+                    display: { xs: "none", sm: "block" },
+                    height: 35,
+                    width: 35,
+                  }}
+                  onClick={() => navigate("/")}
+                />
               )}
             </Box>
             <Box>
