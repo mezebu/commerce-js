@@ -157,11 +157,11 @@ const AddressForm = ({ checkoutToken, next }) => {
                 color="info"
                 size="large"
                 component={Link}
-                to="/cart"
+                to="/products"
                 fullWidth
                 disableElevation
               >
-                Back to cart
+                Back
               </Button>
             </Grid>
             <Grid item xs={12} sm={6}>

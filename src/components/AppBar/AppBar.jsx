@@ -4,7 +4,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Box, Badge, Toolbar } from "@mui/material";
 import { Container, Tooltip } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import StoreMallDirectoryIcon from "@mui/icons-material/StoreMallDirectory";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
 import StoreRoundedIcon from "@mui/icons-material/StoreRounded";
@@ -38,7 +37,7 @@ const AppBar = () => {
         <Container maxWidth="xl">
           <Toolbar>
             <Box sx={{ flexGrow: 1 }}>
-              {pathname !== "/search" && (
+              {pathname !== "/" && (
                 <Typography
                   variant="h6"
                   component="div"
@@ -53,29 +52,16 @@ const AppBar = () => {
               )}
             </Box>
             <Box>
-              {pathname !== "/cart" && (
+              {pathname === "/products" && (
                 <IconButton
                   aria-label="shopping-cart"
                   onClick={handleDrawerToggle}
+                  sx={{ mx: 2 }}
                 >
                   <Badge badgeContent={cart.total_items} color="success">
                     <LocalMallOutlinedIcon sx={{ fontSize: 30 }} />
                   </Badge>
                 </IconButton>
-              )}
-            </Box>
-            <Box sx={{ mr: 2 }}>
-              {pathname === "/search" && (
-                <Avatar>
-                  <Tooltip title="Back to products page">
-                    <IconButton
-                      aria-label="shopping-cart"
-                      onClick={() => navigate("/products")}
-                    >
-                      <StoreMallDirectoryIcon />
-                    </IconButton>
-                  </Tooltip>
-                </Avatar>
               )}
             </Box>
             <Tooltip title={title}>

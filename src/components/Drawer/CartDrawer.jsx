@@ -1,7 +1,9 @@
 import React from "react";
 import { Box, Button, Divider, Toolbar, Typography } from "@mui/material";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 import { StyledDrawer } from "./styles";
+import { Cart } from "../../pages";
 
 const CartDrawer = ({ handleDrawerToggle, open, window }) => {
   const container =
@@ -15,14 +17,31 @@ const CartDrawer = ({ handleDrawerToggle, open, window }) => {
         open={open}
         onClose={handleDrawerToggle}
         ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
+          keepMounted: true,
         }}
       >
-        <Toolbar>
-          <Button onClick={handleDrawerToggle}>close</Button>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="subtitle1" fontWeight={600}>
+            Cart
+          </Typography>
+          <Button
+            sx={{ textTransform: "none" }}
+            onClick={handleDrawerToggle}
+            startIcon={<CloseRoundedIcon />}
+          >
+            Close
+          </Button>
         </Toolbar>
         <Divider />
-        <Typography>Cart Items</Typography>
+        <Box sx={{ my: 2 }}>
+          <Cart handleDrawerToggle={handleDrawerToggle} />
+        </Box>
       </StyledDrawer>
     </Box>
   );

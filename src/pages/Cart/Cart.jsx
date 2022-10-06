@@ -1,28 +1,21 @@
 import React from "react";
-import { Box, Button, CircularProgress } from "@mui/material";
-import { Container, Paper, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box, CircularProgress, Typography, Container } from "@mui/material";
+import PropTypes from "prop-types";
 
 import { CenteredFlexItems } from "../../themes/universalStyles";
-import CartItem from "./CartItem";
 import { useCommerce } from "../../contexts/CommerceContext";
+import CartItem from "./CartItem";
 
-const Cart = () => {
+const Cart = ({ handleDrawerToggle }) => {
   const { cart } = useCommerce();
-  const navigate = useNavigate();
 
   const EmptyCart = () => {
     return (
-      <Paper elevation={0}>
+      <>
         <CenteredFlexItems sx={{ height: "60vh", flexDirection: "column" }}>
           <Typography>Your cart is empty</Typography>
-          <Box sx={{ p: 2 }}>
-            <Button variant="outlined" onClick={() => navigate("/products")}>
-              Continue Shopping
-            </Button>
-          </Box>
         </CenteredFlexItems>
-      </Paper>
+      </>
     );
   };
 
@@ -44,6 +37,7 @@ const Cart = () => {
             lineItems={cart.line_items}
             totalItems={cart.total_items}
             subTotal={cart.subtotal.formatted_with_symbol}
+            handleDrawerToggle={handleDrawerToggle}
           />
         )}
       </Box>
@@ -52,3 +46,7 @@ const Cart = () => {
 };
 
 export default Cart;
+
+Cart.propType = {
+  handleDrawerToggle: PropTypes.func,
+};
