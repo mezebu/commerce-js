@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
+import { StyledButton } from "./styles";
 import { useCommerce } from "../../contexts/CommerceContext";
 import commerce from "../../lib/commerce";
 
@@ -39,19 +40,23 @@ const Categories = () => {
   };
 
   return (
-    <>
+    <Box>
       <Typography fontWeight={600} variant="subtitle2" align="center">
         Categories
       </Typography>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Button onClick={fetchProducts}>All</Button>
+        <StyledButton variant="text" disableRipple onClick={fetchProducts}>
+          All
+        </StyledButton>
         {categories.map(({ id, name, slug }) => (
           <Box sx={{ mr: 1 }} key={id}>
-            <Button onClick={() => getCategory(slug)}>{name}</Button>
+            <StyledButton onClick={() => getCategory(slug)}>
+              {name}
+            </StyledButton>
           </Box>
         ))}
       </Box>
-    </>
+    </Box>
   );
 };
 
