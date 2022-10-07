@@ -3,8 +3,7 @@ import { Box, Container, CssBaseline, Toolbar } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { Routes, Route } from "react-router-dom";
 
-// prettier-ignore
-import { Hero, ProductsList, ProductDescription, NoMatch, CheckOut,  } from "./pages";
+import { Hero, ProductsList, NoMatch, CheckOut } from "./pages";
 
 import Footer from "./components/Footer/Footer";
 
@@ -29,7 +28,6 @@ const App = () => {
               <Route path="/">
                 <Route index element={<Hero />} />
                 <Route path="products" element={<ProductsList />} />
-                <Route path=":productId" element={<ProductDescription />} />
                 <Route path="checkout" element={<CheckOut />} />
                 <Route path="*" element={<NoMatch />} />
               </Route>

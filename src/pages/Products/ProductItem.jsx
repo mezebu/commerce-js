@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { CardMedia, Typography, IconButton } from "@mui/material";
-import { Card, CardContent, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Card, CardContent, Box, Snackbar } from "@mui/material";
+
 import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import PropTypes from "prop-types";
-import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import commerce from "../../lib/commerce";
+import ProductModal from "../../components/ProductModal/ProductModal";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -14,15 +15,12 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const ProductItem = ({ product, onAddToCart }) => {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
+  const [openModal, setOpenModal] = useState(false);
+  const [productDescription, setProductDescription] = useState({});
 
   const handleAddToCart = () => {
     onAddToCart(product.id, 1);
     setOpen(true);
-  };
-
-  const handleDescription = (productId) => {
-    navigate(`/${productId}`);
   };
 
   const handleClose = (event, reason) => {
@@ -33,7 +31,20 @@ const ProductItem = ({ product, onAddToCart }) => {
     setOpen(false);
   };
 
+  const handleModalClose = () => setOpenModal(false);
+
   const { image, name, price, id } = product;
+
+  const handleDescription = async (productId) => {
+    setOpenModal(true);
+
+    try {
+      const response = await commerce.products.retrieve(productId);
+      setProductDescription(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -71,6 +82,7 @@ const ProductItem = ({ product, onAddToCart }) => {
           </Alert>
         </Snackbar>
       </Card>
+      <ProductModal {...{ openModal, handleModalClose, productDescription }} />
     </>
   );
 };

@@ -2,17 +2,18 @@ import React from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import { Button, Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
-import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import DeleteIcon from "@mui/icons-material/Delete";
+import PropTypes from "prop-types";
 import PaidIcon from "@mui/icons-material/Paid";
 
 import { ActionButtons, StyledCartItems } from "./styles";
+import { SpaceBtwFlexItems } from "../../themes/universalStyles";
 import { useCommerce } from "../../contexts/CommerceContext";
 
-const CartItem = ({ lineItems, totalItems, subTotal, handleDrawerToggle }) => {
+const CartItem = ({ lineItems, subTotal, handleDrawerToggle }) => {
   // prettier-ignore
   const { handleRemoveFromCart, handleCartUpdate, handleEmptyCart } = useCommerce();
   const navigate = useNavigate();
@@ -25,19 +26,13 @@ const CartItem = ({ lineItems, totalItems, subTotal, handleDrawerToggle }) => {
   return (
     <>
       <Box>
-        <Box sx={{ mb: 2 }}>
-          <Typography sx={{ fontWeight: 600 }} variant="subtitle2">
-            Item(s) in cart : {totalItems}
-          </Typography>
-        </Box>
-
         {lineItems.map(({ id, image, name, price, quantity, line_total }) => (
           <StyledCartItems key={id}>
             <Box sx={{ display: "flex", alignItems: "center", my: 1 }}>
               <Avatar
                 src={image?.url}
                 alt={name}
-                sx={{ height: 67, width: 65 }}
+                sx={{ height: 70, width: 67 }}
                 variant="rounded"
               />
               <Box>
@@ -48,14 +43,7 @@ const CartItem = ({ lineItems, totalItems, subTotal, handleDrawerToggle }) => {
                   {price?.formatted_with_symbol}
                 </Typography>
 
-                <Box
-                  sx={{
-                    ml: 1,
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
+                <SpaceBtwFlexItems sx={{ ml: 1 }}>
                   <ActionButtons>
                     <IconButton
                       size="small"
@@ -72,15 +60,15 @@ const CartItem = ({ lineItems, totalItems, subTotal, handleDrawerToggle }) => {
                     </IconButton>
                   </ActionButtons>
 
-                  <Box sx={{ ml: 13, display: "flex", alignItems: "center" }}>
-                    <Typography variant="subtitle2">
+                  <Box sx={{ ml: 11, display: "flex", alignItems: "center" }}>
+                    <Typography variant="subtitle2" fontWeight={600}>
                       {line_total.formatted_with_symbol}
                     </Typography>
                     <IconButton onClick={() => handleRemoveFromCart(id)}>
                       <DeleteIcon />
                     </IconButton>
                   </Box>
-                </Box>
+                </SpaceBtwFlexItems>
               </Box>
             </Box>
           </StyledCartItems>
@@ -95,21 +83,23 @@ const CartItem = ({ lineItems, totalItems, subTotal, handleDrawerToggle }) => {
           {subTotal}
         </Typography>
       </Box>
-      <Box>
+      <Box sx={{ "& button": { mb: 1 }, textTransform: "none" }}>
         <Button
           variant="contained"
           color="error"
+          size="large"
           startIcon={<RemoveShoppingCartIcon />}
           onClick={handleEmptyCart}
           disableElevation
           fullWidth
-          sx={{ mb: 2, textTransform: "none" }}
+          sx={{ textTransform: "none" }}
         >
           Clear Cart
         </Button>
         <Button
           variant="contained"
           color="success"
+          size="large"
           startIcon={<PaidIcon />}
           onClick={handleCheckout}
           disableElevation

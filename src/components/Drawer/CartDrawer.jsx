@@ -1,13 +1,16 @@
 import React from "react";
-import { Box, Button, Divider, Toolbar, Typography } from "@mui/material";
+import { Box, Button, Divider, Typography } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import PropTypes from "prop-types";
 
-import { StyledDrawer } from "./styles";
+import { StyledDrawer, StyledToolbar } from "./styles";
+import { useCommerce } from "../../contexts/CommerceContext";
 import { Cart } from "../../pages";
 
 const CartDrawer = ({ handleDrawerToggle, open, window }) => {
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  // prettier-ignore
+  const container = window !== undefined ? () => window().document.body : undefined;
+  const { cart } = useCommerce();
 
   return (
     <Box component="nav" aria-label="cart-items">
@@ -20,16 +23,16 @@ const CartDrawer = ({ handleDrawerToggle, open, window }) => {
           keepMounted: true,
         }}
       >
-        <Toolbar
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Typography variant="subtitle1" fontWeight={600}>
-            Cart
-          </Typography>
+        <StyledToolbar>
+          <Box>
+            <Typography variant="subtitle1" fontWeight={700}>
+              Cart
+            </Typography>
+            <Typography variant="subtitle2" fontWeight={600}>
+              Item(s) in cart : {cart.total_items}
+            </Typography>
+          </Box>
+
           <Button
             sx={{ textTransform: "none" }}
             onClick={handleDrawerToggle}
@@ -37,7 +40,7 @@ const CartDrawer = ({ handleDrawerToggle, open, window }) => {
           >
             Close
           </Button>
-        </Toolbar>
+        </StyledToolbar>
         <Divider />
         <Box sx={{ my: 2 }}>
           <Cart handleDrawerToggle={handleDrawerToggle} />
@@ -48,3 +51,9 @@ const CartDrawer = ({ handleDrawerToggle, open, window }) => {
 };
 
 export default CartDrawer;
+
+CartDrawer.propType = {
+  oepn: PropTypes.func,
+  window: PropTypes.node,
+  handleDrawerToggle: PropTypes.func,
+};

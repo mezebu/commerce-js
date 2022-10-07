@@ -2,6 +2,7 @@ import React from "react";
 import { Box, TextField } from "@mui/material";
 
 import { useCommerce } from "../../contexts/CommerceContext";
+import FilterButton from "../FilterButton/FilterButton";
 
 const SearchBar = () => {
   const { searchProduct, query, handleChange } = useCommerce();
@@ -19,6 +20,9 @@ const SearchBar = () => {
           onChange={handleChange}
           fullWidth
         />
+      </Box>
+      <Box sx={{ ml: 2 }}>
+        <FilterButton />
       </Box>
     </Box>
   );
