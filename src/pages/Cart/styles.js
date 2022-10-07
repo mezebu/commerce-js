@@ -7,7 +7,7 @@ export const ActionButtons = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  width: 70,
+  width: 100,
   height: 25,
 }));
 
