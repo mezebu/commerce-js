@@ -157,7 +157,7 @@ const AddressForm = ({ checkoutToken, next }) => {
                 color="info"
                 size="large"
                 component={Link}
-                to="/products"
+                to="/"
                 fullWidth
                 disableElevation
               >

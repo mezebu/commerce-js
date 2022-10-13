@@ -37,25 +37,23 @@ const AppBar = () => {
         <Container maxWidth="xl">
           <Toolbar>
             <Box sx={{ flexGrow: 1 }}>
-              {pathname !== "/" && (
-                <Typography
-                  variant="h6"
-                  component="img"
-                  src={store}
-                  alt="store-logo"
-                  sx={{
-                    ml: 1,
-                    cursor: "pointer",
-                    display: { xs: "none", sm: "block" },
-                    height: 35,
-                    width: 35,
-                  }}
-                  onClick={() => navigate("/")}
-                />
-              )}
+              <Typography
+                variant="h6"
+                component="img"
+                src={store}
+                alt="store-logo"
+                sx={{
+                  ml: 1,
+                  cursor: "pointer",
+                  display: { xs: "none", sm: "block" },
+                  height: 35,
+                  width: 35,
+                }}
+                onClick={() => navigate("/")}
+              />
             </Box>
             <Box>
-              {pathname === "/products" && (
+              {pathname === "/" && (
                 <IconButton
                   aria-label="shopping-cart"
                   onClick={handleDrawerToggle}

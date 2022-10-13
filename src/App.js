@@ -3,7 +3,7 @@ import { Box, Container, CssBaseline, Toolbar } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { Routes, Route } from "react-router-dom";
 
-import { Hero, ProductsList, NoMatch, CheckOut } from "./pages";
+import { ProductsList, NoMatch, CheckOut } from "./pages";
 
 import Footer from "./components/Footer/Footer";
 
@@ -26,8 +26,7 @@ const App = () => {
           <Box component="main" sx={{ p: 3 }}>
             <Routes>
               <Route path="/">
-                <Route index element={<Hero />} />
-                <Route path="products" element={<ProductsList />} />
+                <Route index element={<ProductsList />} />
                 <Route path="checkout" element={<CheckOut />} />
                 <Route path="*" element={<NoMatch />} />
               </Route>
