@@ -42,7 +42,7 @@ const Confirmation = () => {
             </Typography>
           </Box>
           <CenteredFlexItems>
-            <Button onClick={() => navigate("/products")}>Back to home</Button>
+            <Button onClick={() => navigate("/")}>Back to home</Button>
           </CenteredFlexItems>
         </Box>
       ) : (
