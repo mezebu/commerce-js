@@ -1,6 +1,5 @@
 import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { Box, TextField } from "@mui/material";
 
 import { useCommerce } from "../../contexts/CommerceContext";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
