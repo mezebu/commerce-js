@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button, MenuItem } from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-import { StyledButton } from "./styles";
 import { useCommerce } from "../../contexts/CommerceContext";
 import commerce from "../../lib/commerce";
 
+import { StyledMenu } from "./styles";
+
 const Categories = () => {
   const [categories, setCategories] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const { setProducts, fetchProducts, setLoading } = useCommerce();
+  const open = Boolean(anchorEl);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -39,23 +43,61 @@ const Categories = () => {
     }
   };
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <Box>
-      <Typography fontWeight={600} variant="subtitle2" align="center">
+      <Button
+        id="customized-button"
+        aria-controls={open ? "customized-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        variant="text"
+        color="inherit"
+        disableElevation
+        onClick={handleClick}
+        endIcon={<KeyboardArrowDownIcon />}
+      >
         Categories
-      </Typography>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <StyledButton variant="text" disableRipple onClick={fetchProducts}>
+      </Button>
+      <StyledMenu
+        id="customized-menu"
+        MenuListProps={{
+          "aria-labelledby": "customized-button",
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      >
+        <MenuItem
+          onClick={() => {
+            fetchProducts();
+            handleClose();
+          }}
+          disableRipple
+          sx={{ padding: 2 }}
+        >
           All
-        </StyledButton>
+        </MenuItem>
         {categories.map(({ id, name, slug }) => (
-          <Box sx={{ mr: 1 }} key={id}>
-            <StyledButton onClick={() => getCategory(slug)}>
-              {name}
-            </StyledButton>
-          </Box>
+          <MenuItem
+            onClick={() => {
+              handleClose();
+              getCategory(slug);
+            }}
+            disableRipple
+            key={id}
+            sx={{ padding: 2 }}
+          >
+            <Typography>{name}</Typography>
+          </MenuItem>
         ))}
-      </Box>
+      </StyledMenu>
     </Box>
   );
 };
