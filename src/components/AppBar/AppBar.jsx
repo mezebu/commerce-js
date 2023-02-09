@@ -8,12 +8,14 @@ import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
 import ModeNightRoundedIcon from "@mui/icons-material/ModeNightRounded";
 
+import { useCommerce } from "../../contexts/CommerceContext";
+
 // prettier-ignore
 import { useThemeContext, useThemeUpdateContext,} from "../../contexts/ThemeContext";
 import { lightMode, darkMode, StyledAppBar } from "./styles";
-import { useCommerce } from "../../contexts/CommerceContext";
 import CartDrawer from "../Drawer/CartDrawer";
 import store from "../../assets/shopping-cart.png";
+import Categories from "../Categories/Categories";
 
 const AppBar = () => {
   const [open, setOpen] = useState(false);
@@ -52,6 +54,7 @@ const AppBar = () => {
                 onClick={() => navigate("/")}
               />
             </Box>
+            <Categories />
             <Box>
               {pathname === "/" && (
                 <IconButton
