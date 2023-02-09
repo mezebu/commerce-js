@@ -19,7 +19,7 @@ const ProductsList = () => {
         <Box sx={{ py: 3 }}>
           <SearchBar />
         </Box>
-        <Grid container spacing={1}>
+        <Grid container spacing={3}>
           {loading ? (
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <Box
@@ -36,7 +36,7 @@ const ProductsList = () => {
           ) : (
             <>
               {products.map((product) => (
-                <Grid key={product.id} item lg={4} md={6} sm={12} xs={12}>
+                <Grid key={product.id} item lg={4} md={4} sm={6} xs={12}>
                   <ProductItem
                     product={product}
                     onAddToCart={handleAddToCart}
