@@ -4,22 +4,20 @@ import { Box, CircularProgress, Container, Grid } from "@mui/material";
 import { useCommerce } from "../../contexts/CommerceContext";
 
 import ProductItem from "./ProductItem";
-import FilterButton from "../../components/FilterButton/FilterButton";
+import SearchBar from "../../components/SearchBar/SearchBar";
 import Categories from "../../components/Categories/Categories";
-import Banner from "../../components/Banner/Banner";
 
 const ProductsList = () => {
   const { products, handleAddToCart, loading } = useCommerce();
 
   return (
     <Container>
-      <Banner />
-      <Box sx={{ m: 5 }}>
+      <Box sx={{ mb: 5 }}>
         <Box>
           <Categories />
         </Box>
         <Box sx={{ py: 3 }}>
-          <FilterButton />
+          <SearchBar />
         </Box>
         <Grid container spacing={1}>
           {loading ? (
