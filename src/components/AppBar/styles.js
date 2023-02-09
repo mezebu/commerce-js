@@ -19,6 +19,12 @@ export const darkMode = createTheme({
       paper: "rgb(27, 38, 53)",
     },
   },
+  typography: {
+    allVariants: {
+      fontFamily: "Montserrat",
+      textTransform: "none",
+    },
+  },
 });
 
 export const lightMode = createTheme({
@@ -26,6 +32,12 @@ export const lightMode = createTheme({
     mode: "light",
     background: {
       paper: "rgb(27, 38, 53)",
+    },
+  },
+  typography: {
+    allVariants: {
+      fontFamily: "Montserrat",
+      textTransform: "none",
     },
   },
 });
