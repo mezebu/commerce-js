@@ -5,6 +5,7 @@ import { blue } from "@mui/material/colors";
 import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
 import PropTypes from "prop-types";
 import MuiAlert from "@mui/material/Alert";
+
 import commerce from "../../lib/commerce";
 import ProductModal from "../../components/ProductModal/ProductModal";
 
@@ -54,7 +55,7 @@ const ProductItem = ({ product, onAddToCart }) => {
       >
         <CardMedia
           component="img"
-          sx={{ width: "100%", height: "100%" }}
+          sx={{ height: "100%" }}
           image={image?.url}
           alt={name}
         />
