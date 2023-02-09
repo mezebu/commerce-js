@@ -5,8 +5,6 @@ import { Routes, Route } from "react-router-dom";
 
 import { ProductsList, NoMatch, CheckOut } from "./pages";
 
-import Footer from "./components/Footer/Footer";
-
 import { darkMode, lightMode } from "./themes/universalStyles";
 import { CommerceContext } from "./contexts/CommerceContext";
 import { useThemeContext } from "./contexts/ThemeContext";
@@ -33,7 +31,6 @@ const App = () => {
             </Routes>
           </Box>
         </Container>
-        <Footer />
       </CommerceContext>
     </ThemeProvider>
   );
