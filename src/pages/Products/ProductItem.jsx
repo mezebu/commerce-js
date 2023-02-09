@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { CardMedia, Typography, IconButton } from "@mui/material";
-import { Card, CardContent, Box, Snackbar } from "@mui/material";
-
+import { CardMedia, Typography, IconButton, Button } from "@mui/material";
+import { Card, Avatar, Box, Snackbar } from "@mui/material";
+import { blue } from "@mui/material/colors";
 import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
-import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import PropTypes from "prop-types";
 import MuiAlert from "@mui/material/Alert";
 import commerce from "../../lib/commerce";
@@ -33,7 +32,7 @@ const ProductItem = ({ product, onAddToCart }) => {
 
   const handleModalClose = () => setOpenModal(false);
 
-  const { image, name, price, id } = product;
+  const { image, name, price, id, seo } = product;
 
   const handleDescription = async (productId) => {
     setOpenModal(true);
@@ -48,40 +47,54 @@ const ProductItem = ({ product, onAddToCart }) => {
 
   return (
     <>
-      <Card sx={{ display: "flex" }} elevation={0} variant="outlined">
+      <Card
+        elevation={0}
+        sx={{ height: 250, mb: 1, position: "relative" }}
+        variant="outlined"
+      >
         <CardMedia
           component="img"
-          sx={{ width: 160 }}
-          height="130"
+          sx={{ width: "100%", height: "100%" }}
           image={image?.url}
           alt={name}
         />
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography variant="subtitle2">{name}</Typography>
-            <Typography variant="subtitle2" color="text.secondary">
-              {price?.formatted_with_symbol}
-            </Typography>
-          </CardContent>
-          <Box sx={{ display: "flex", alignItems: "center", pl: 1 }}>
-            <IconButton color="primary" onClick={handleAddToCart}>
-              <AddCircleRoundedIcon />
-            </IconButton>
-            <IconButton color="primary" onClick={() => handleDescription(id)}>
-              <RemoveRedEyeRoundedIcon />
-            </IconButton>
-          </Box>
-        </Box>
-        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            {name} has been added to your cart
-          </Alert>
-        </Snackbar>
+        <Avatar
+          sx={{
+            position: "absolute",
+            top: 15,
+            right: 15,
+            bgcolor: (theme) =>
+              theme.palette.mode === "light"
+                ? blue[50]
+                : theme.palette.primary.dark,
+          }}
+        >
+          <IconButton color="default" onClick={() => handleDescription(id)}>
+            <RemoveRedEyeRoundedIcon />
+          </IconButton>
+        </Avatar>
       </Card>
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+          {name}
+        </Typography>
+        <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+          {price?.formatted_with_symbol}
+        </Typography>
+      </Box>
+      <Box>
+        <Typography variant="subtitle2" sx={{ fontSize: 12, mb: 1 }}>
+          {seo.description}
+        </Typography>
+        <Button variant="outlined" onClick={handleAddToCart}>
+          Add to cart
+        </Button>
+      </Box>
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          {name} has been added to your cart
+        </Alert>
+      </Snackbar>
       <ProductModal {...{ openModal, handleModalClose, productDescription }} />
     </>
   );
