@@ -54,7 +54,8 @@ const AppBar = () => {
                 onClick={() => navigate("/")}
               />
             </Box>
-            <Categories />
+            {pathname === "/" && <Categories />}
+
             <Box>
               {pathname === "/" && (
                 <IconButton

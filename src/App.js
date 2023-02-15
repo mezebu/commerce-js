@@ -9,6 +9,7 @@ import { darkMode, lightMode } from "./themes/universalStyles";
 import { CommerceContext } from "./contexts/CommerceContext";
 import { useThemeContext } from "./contexts/ThemeContext";
 import AppBar from "./components/AppBar/AppBar";
+import ProductDescription from "./pages/Products/ProductDescription";
 
 const App = () => {
   const darkTheme = useThemeContext();
@@ -26,6 +27,7 @@ const App = () => {
               <Route path="/">
                 <Route index element={<ProductsList />} />
                 <Route path="checkout" element={<CheckOut />} />
+                <Route path=":prodId" element={<ProductDescription />} />
                 <Route path="*" element={<NoMatch />} />
               </Route>
             </Routes>
