@@ -1,20 +1,9 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  CircularProgress,
-  Divider,
-  Grid,
-  Typography,
-} from "@mui/material";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { CardContent, CardMedia, CircularProgress } from "@mui/material";
+import { Avatar, Box, Button, Card, CardActions } from "@mui/material";
+import { Divider, Grid, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
+
 import { useCommerce } from "../../contexts/CommerceContext";
 import commerce from "../../lib/commerce";
 
