@@ -2,13 +2,16 @@ import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export const ActionButtons = styled(Box)(({ theme }) => ({
-  border: "1px solid rgba(145, 158, 171, 0.32)",
-  borderRadius: theme.shape.borderRadius,
   display: "flex",
+  flexDirection: "row",
+  flexShrink: 0,
   alignItems: "center",
   justifyContent: "space-between",
-  width: 100,
-  height: 25,
+  marginBottom: "4px",
+  padding: "4px 6px",
+  width: "96px",
+  borderRadius: theme.shape.borderRadius,
+  border: "1px solid rgba(145, 158, 171, 0.32)",
 }));
 
 export const StyledCartItems = styled(Box)(({ theme }) => ({

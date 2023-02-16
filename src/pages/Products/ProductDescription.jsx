@@ -64,20 +64,21 @@ const ProductDescription = () => {
                   >
                     {name}
                   </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    color="text.secondary"
-                    dangerouslySetInnerHTML={{ __html: description }}
-                    gutterBottom
-                  />
-                </Box>
-                <Divider />
-                <Box sx={{ my: 3 }}>
                   <Typography variant="h6" sx={{ fontWeight: 700 }}>
                     {price?.formatted_with_symbol}
                   </Typography>
+                  <Divider />
+                  <Box sx={{ my: 3 }}>
+                    <Typography
+                      variant="subtitle2"
+                      color="text.secondary"
+                      dangerouslySetInnerHTML={{ __html: description }}
+                      gutterBottom
+                    />
+                  </Box>
                 </Box>
                 <Divider />
+
                 {assets && (
                   <Box sx={{ mt: 3 }}>
                     <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
@@ -100,23 +101,25 @@ const ProductDescription = () => {
               </CardContent>
               <Divider />
               <CardActions>
-                <Button
-                  variant="outlined"
-                  sx={{ borderRadius: 5 }}
-                  onClick={() => handleAddToCart(id, 1)}
-                  disableElevation
-                >
-                  Add to Cart
-                </Button>
-                <Button
-                  variant="contained"
-                  sx={{ borderRadius: 5 }}
-                  onClick={() => navigate("/")}
-                  color="success"
-                  disableElevation
-                >
-                  Back to Homepage
-                </Button>
+                <Box sx={{ mt: 2 }}>
+                  <Button
+                    variant="outlined"
+                    sx={{ borderRadius: 5, mr: 2 }}
+                    onClick={() => handleAddToCart(id, 1)}
+                    disableElevation
+                  >
+                    Add to Cart
+                  </Button>
+                  <Button
+                    variant="contained"
+                    sx={{ borderRadius: 5 }}
+                    onClick={() => navigate("/")}
+                    color="success"
+                    disableElevation
+                  >
+                    Back to Homepage
+                  </Button>
+                </Box>
               </CardActions>
             </Grid>
           </Grid>

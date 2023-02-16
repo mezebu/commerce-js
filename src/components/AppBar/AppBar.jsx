@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Typography, Avatar, IconButton } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Box, Badge, Toolbar } from "@mui/material";
@@ -13,25 +13,19 @@ import { useCommerce } from "../../contexts/CommerceContext";
 // prettier-ignore
 import { useThemeContext, useThemeUpdateContext,} from "../../contexts/ThemeContext";
 import { lightMode, darkMode, StyledAppBar } from "./styles";
-import CartDrawer from "../Drawer/CartDrawer";
+
 import store from "../../assets/shopping-cart.png";
 import Categories from "../Categories/Categories";
 
 const AppBar = () => {
-  const [open, setOpen] = useState(false);
-
   const { cart } = useCommerce();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const darkTheme = useThemeContext();
   const theme = darkTheme ? darkMode : lightMode;
   const themeHandler = useThemeUpdateContext();
-  const navigate = useNavigate();
   const icon = darkTheme ? <LightModeRoundedIcon /> : <ModeNightRoundedIcon />;
   const title = darkTheme ? "Switch to light theme" : "Switch to dark theme";
-
-  const handleDrawerToggle = () => {
-    setOpen(!open);
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -59,8 +53,8 @@ const AppBar = () => {
             <Box>
               {pathname === "/" && (
                 <IconButton
-                  aria-label="shopping-cart"
-                  onClick={handleDrawerToggle}
+                  aria-label="shopping-cart-icon"
+                  onClick={() => navigate("/cart")}
                   sx={{ mx: 2 }}
                 >
                   <Badge badgeContent={cart.total_items} color="success">
@@ -77,7 +71,6 @@ const AppBar = () => {
           </Toolbar>
         </Container>
       </StyledAppBar>
-      <CartDrawer handleDrawerToggle={handleDrawerToggle} open={open} />
     </ThemeProvider>
   );
 };

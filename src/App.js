@@ -3,13 +3,13 @@ import { Box, Container, CssBaseline, Toolbar } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { Routes, Route } from "react-router-dom";
 
-import { ProductsList, NoMatch, CheckOut } from "./pages";
+import { ProductsList, NoMatch, CheckOut, Cart } from "./pages";
 
 import { darkMode, lightMode } from "./themes/universalStyles";
 import { CommerceContext } from "./contexts/CommerceContext";
 import { useThemeContext } from "./contexts/ThemeContext";
-import AppBar from "./components/AppBar/AppBar";
 import ProductDescription from "./pages/Products/ProductDescription";
+import AppBar from "./components/AppBar/AppBar";
 
 const App = () => {
   const darkTheme = useThemeContext();
@@ -28,6 +28,7 @@ const App = () => {
                 <Route index element={<ProductsList />} />
                 <Route path="checkout" element={<CheckOut />} />
                 <Route path=":prodId" element={<ProductDescription />} />
+                <Route path="cart" element={<Cart />} />
                 <Route path="*" element={<NoMatch />} />
               </Route>
             </Routes>
