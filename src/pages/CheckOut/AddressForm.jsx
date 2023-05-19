@@ -101,7 +101,7 @@ const AddressForm = ({ checkoutToken, next }) => {
             <CustomeTextField name="firstname" label="First Name" />
             <CustomeTextField name="lastname" label="Last Name" />
             <CustomeTextField name="address" label="Address" />
-            <CustomeTextField name="email" label="Email" />
+            <CustomeTextField name="email" label="Email" type="email" />
             <CustomeTextField name="city" label="City" />
             <CustomeTextField name="postalcode" label="Postal Code" />
             <Grid item xs={12} sm={6}>

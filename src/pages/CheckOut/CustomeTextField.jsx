@@ -3,7 +3,7 @@ import { TextField, Grid } from "@mui/material";
 import { useFormContext, Controller } from "react-hook-form";
 import PropTypes from "prop-types";
 
-const CustomeTextField = ({ name, label }) => {
+const CustomeTextField = ({ name, label, type }) => {
   const { control } = useFormContext();
   return (
     <Grid item xs={12} sm={6}>
@@ -15,6 +15,7 @@ const CustomeTextField = ({ name, label }) => {
             {...field}
             fullWidth
             required
+            type={type}
           />
         )}
         name={name}
@@ -30,5 +31,5 @@ export default CustomeTextField;
 CustomeTextField.propTypes = {
   name: PropTypes.string,
   label: PropTypes.string,
-  required: PropTypes.bool,
+  type: PropTypes.string,
 };

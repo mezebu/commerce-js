@@ -1,16 +1,10 @@
-import React, { createContext, useState } from "react";
-import { useContext } from "react";
+import React, { createContext, useState, useContext } from "react";
 
 const ThemeContext = createContext();
 const ThemeUpdateContext = createContext();
 
-const useThemeContext = () => {
-  return useContext(ThemeContext);
-};
-
-const useThemeUpdateContext = () => {
-  return useContext(ThemeUpdateContext);
-};
+const useThemeContext = () => useContext(ThemeContext);
+const useThemeUpdateContext = () => useContext(ThemeUpdateContext);
 
 const ThemeProvider = ({ children }) => {
   const [darkTheme, setDarkTheme] = useState(false);

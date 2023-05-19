@@ -15,126 +15,134 @@ export function CommerceContext({ children }) {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Fetch products from the API
   const fetchProducts = async () => {
     setLoading(true);
     try {
       const { data } = await commerce.products.list();
-
       setProducts(data);
-      setLoading(false);
     } catch (error) {
-      console.log("There was an error fetching the products", error);
+      console.log("Error fetching products:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const searchProduct = (e) => {
+  // Search for a product by query
+  const searchProduct = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    commerce.products
-      .list({ query: query })
-      .then(({ data }) => {
-        setProducts(data);
-        setLoading(false);
-        setQuery("");
-      })
-      .catch((error) =>
-        console.log("There was an error fetching a product", error)
-      );
+    try {
+      const { data } = await commerce.products.list({ query: query });
+      setProducts(data);
+    } catch (error) {
+      console.log("Error fetching a product:", error);
+    } finally {
+      setLoading(false);
+      setQuery("");
+    }
   };
 
+  // Handle input change for search query
   const handleChange = (event) => {
     setQuery(event.target.value);
   };
 
+  // Fetch filtered products based on sort order
+  const fetchFilteredProducts = async (sortBy, sortDirection) => {
+    setLoading(true);
+    try {
+      const { data } = await commerce.products.list({
+        sortBy: sortBy,
+        sortDirection: sortDirection,
+      });
+      setProducts(data);
+    } catch (error) {
+      console.log("Error filtering products:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Sort products by price
   const sortByPrice = (sortOrder) => {
-    setLoading(true);
-    commerce.products
-      .list({ sortBy: "price", sortDirection: sortOrder })
-      .then(({ data }) => {
-        setProducts(data);
-        setLoading(false);
-      })
-      .catch((error) => console.log("Error filtering sort order", error));
+    fetchFilteredProducts("price", sortOrder);
   };
 
+  // Sort products by name
   const sortByName = (sortOrder) => {
-    setLoading(true);
-    commerce.products
-      .list({ sortBy: "name", sortDirection: sortOrder })
-      .then(({ data }) => {
-        setProducts(data);
-        setLoading(false);
-      })
-      .catch((error) => console.log(error));
+    fetchFilteredProducts("name", sortOrder);
   };
 
-  const fetchCart = () => {
-    commerce.cart
-      .retrieve()
-      .then((cart) => setCart(cart))
-      .catch((error) =>
-        console.log("There was an error fetching the cart", error)
-      );
+  // Fetch the cart from the API
+  const fetchCart = async () => {
+    try {
+      const cart = await commerce.cart.retrieve();
+      setCart(cart);
+    } catch (error) {
+      console.log("Error fetching the cart:", error);
+    }
   };
 
+  // Update the quantity of an item in the cart
   const handleCartUpdate = async (lineItemId, quantity) => {
     try {
       const { cart } = await commerce.cart.update(lineItemId, { quantity });
       setCart(cart);
     } catch (error) {
-      console.log("error updating cart", error);
+      console.log("Error updating the cart:", error);
     }
   };
 
-  const handleAddToCart = (productId, quantity) => {
-    commerce.cart
-      .add(productId, quantity)
-      .then((item) => {
-        setCart(item.cart);
-      })
-      .catch((error) => {
-        console.error("There was an error adding the item to the cart", error);
-      });
+  // Add an item to the cart
+  const handleAddToCart = async (productId, quantity) => {
+    try {
+      const item = await commerce.cart.add(productId, quantity);
+      setCart(item.cart);
+    } catch (error) {
+      console.error("Error adding the item to the cart:", error);
+    }
   };
 
+  // Remove an item from the cart
   const handleRemoveFromCart = async (itemId) => {
     try {
       const response = await commerce.cart.remove(itemId);
       setCart(response.cart);
     } catch (error) {
-      console.log("Error deleting cart", error);
+      console.log("Error deleting the cart:", error);
     }
   };
 
+  // Empty the cart
   const handleEmptyCart = async () => {
     try {
       const { cart } = await commerce.cart.empty();
       setCart(cart);
     } catch (error) {
-      console.log("There was an error emptying the cart", error);
+      console.log("Error emptying the cart:", error);
     }
   };
 
+  // Refresh the cart
   const refreshCart = async () => {
     try {
-      const newCart = commerce.cart.refresh();
+      const newCart = await commerce.cart.refresh();
       setCart(newCart);
     } catch (error) {
-      console.log("There was an error refreshing your cart", error);
+      console.log("Error refreshing the cart:", error);
     }
   };
 
+  // Capture the checkout and place an order
   const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
     try {
-      const response = await commerce.checkout.capture(
-        checkoutTokenId,
-        newOrder
-      );
-      setOrder(response);
+      const order = await commerce.checkout.capture(checkoutTokenId, newOrder);
+      setOrder(order);
       refreshCart();
     } catch (error) {
-      console.log("There was an error confirming your order", error);
+      console.log("Error confirming your order:", error);
       setErrorMessage(error.data.error.message);
     }
   };
