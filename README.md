@@ -68,8 +68,6 @@ Contributions to this project are welcome and encouraged. If you'd like to contr
 
 This project is released under the [MIT License](https://opensource.org/license/mit/). You are free to use, modify, and distribute the project in both commercial and non-commercial projects.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
 ### Conclusion
 
 I built this project using Commerce.js to provide a seamless and feature-rich e-commerce experience. Whether you're building a small online store or a large-scale e-commerce platform, Commerce.js simplifies the process of integrating e-commerce features, allowing you to focus on delivering a great user experience.
