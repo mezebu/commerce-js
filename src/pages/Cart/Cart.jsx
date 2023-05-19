@@ -1,14 +1,20 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+
+// Material-UI components
 import { Box, CircularProgress, Typography, Container } from "@mui/material";
 import { Grid, Card, Button, CardContent } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
-import PaidIcon from "@mui/icons-material/Paid";
-import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 
-import { CenteredFlexItems } from "../../themes/universalStyles";
-import { useCommerce } from "../../contexts/CommerceContext";
-import CartItem from "./CartItem";
+// Material-UI icons
+import PaidIcon from "@mui/icons-material/Paid"; // PaidIcon for indicating a paid status
+import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart"; // RemoveShoppingCartIcon for indicating removal from cart
+
+// Custom styles and context
+import { CenteredFlexItems } from "../../themes/universalStyles"; // Custom style for centering flex items
+import { useCommerce } from "../../contexts/CommerceContext"; // Custom CommerceContext for commerce-related operations
+
+import CartItem from "./CartItem"; // Custom CartItem component for rendering individual cart items
 
 const Cart = ({ handleDrawerToggle }) => {
   const navigate = useNavigate();
@@ -18,16 +24,12 @@ const Cart = ({ handleDrawerToggle }) => {
     navigate("/checkout");
   };
 
-  const EmptyCart = () => {
-    return (
-      <>
-        <CenteredFlexItems sx={{ height: "60vh", flexDirection: "column" }}>
-          <Typography>Your cart is empty</Typography>
-          <Button onClick={() => navigate("/")}>Back Home</Button>
-        </CenteredFlexItems>
-      </>
-    );
-  };
+  const EmptyCart = () => (
+    <CenteredFlexItems sx={{ height: "60vh", flexDirection: "column" }}>
+      <Typography>Your cart is empty</Typography>
+      <Button onClick={() => navigate("/")}>Back Home</Button>
+    </CenteredFlexItems>
+  );
 
   if (!cart.line_items) {
     return (
