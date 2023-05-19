@@ -20,26 +20,27 @@ const Categories = () => {
       try {
         const { data } = await commerce.categories.list();
         setCategories(data);
-        setLoading(false);
       } catch (error) {
-        console.log(error);
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchCategories();
   }, [setLoading]);
 
-  const getCategory = async (cat) => {
+  const getCategory = async (categorySlug) => {
     setLoading(true);
     try {
       const { data } = await commerce.products.list({
-        category_slug: [cat],
+        category_slug: [categorySlug],
       });
-
       setProducts(data);
-      setLoading(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,6 +49,11 @@ const Categories = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleCategoryClick = (categorySlug) => {
+    handleClose();
+    getCategory(categorySlug);
   };
 
   return (
@@ -79,18 +85,13 @@ const Categories = () => {
             fetchProducts();
             handleClose();
           }}
-          disableRipple
           sx={{ padding: 2 }}
         >
           All
         </MenuItem>
         {categories.map(({ id, name, slug }) => (
           <MenuItem
-            onClick={() => {
-              handleClose();
-              getCategory(slug);
-            }}
-            disableRipple
+            onClick={() => handleCategoryClick(slug)}
             key={id}
             sx={{ padding: 2 }}
           >
